@@ -305,6 +305,7 @@
     .bs-bal   { background: var(--orange-light); color: var(--orange); }
     .bs-stu   { background: var(--blue-light); color: var(--blue); }
     .bs-fin   { background: var(--green-light); color: var(--green); }
+    .bs-pub   { background: var(--grey-light); color: #555; }
 
     .card-title {
       font-size: 0.9rem;
@@ -354,6 +355,8 @@
     .card-link { font-size: 0.73rem; color: var(--blue); text-decoration: none; white-space: nowrap; }
     .card-link:hover { text-decoration: underline; }
     .card-link-muted { color: var(--text-muted); }
+    .copy-btn { background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; }
+    .copy-btn.copied { color: var(--green); }
 
     /* ── Empty / loading states ── */
     .state-msg { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
@@ -657,6 +660,8 @@ function matchesSpec(spec, filters, query) {
   if (pF !== 'all') {
     if (pF === 'Autre') {
       if (['ANS','ANS (CI-SIS)','HL7 France'].includes(spec.publisher)) return false;
+    } else if (pF === 'ANS') {
+      if (spec.publisher !== 'ANS' && spec.publisher !== 'ANS (CI-SIS)') return false;
     } else if (spec.publisher !== pF) return false;
   }
   if (tF !== 'all') {
@@ -684,20 +689,24 @@ function getFiltered() {
 
 function sortSpecs(specs) {
   const s = [...specs];
-  switch (state.sort) {
-    case 'alpha':
-      return s.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'fr'));
-    case 'publisher':
-      return s.sort((a, b) =>
-        (a.publisher + '|' + a.title).localeCompare(b.publisher + '|' + b.title, 'fr'));
-    default: // date-desc
-      return s.sort((a, b) => {
-        if (!a.latestDate && !b.latestDate) return (a.title||'').localeCompare(b.title||'', 'fr');
-        if (!a.latestDate) return 1;
-        if (!b.latestDate) return -1;
-        return b.latestDate.localeCompare(a.latestDate);
-      });
+  const byDate = (a, b) => {
+    if (!a.latestDate && !b.latestDate) return (a.title||'').localeCompare(b.title||'', 'fr');
+    if (!a.latestDate) return 1;
+    if (!b.latestDate) return -1;
+    return b.latestDate.localeCompare(a.latestDate);
+  };
+  const byAlpha     = (a, b) => (a.title || '').localeCompare(b.title || '', 'fr');
+  const byPublisher = (a, b) => (a.publisher + '|' + a.title).localeCompare(b.publisher + '|' + b.title, 'fr');
+
+  const base = state.sort === 'alpha' ? byAlpha : state.sort === 'publisher' ? byPublisher : byDate;
+
+  if (state.query) {
+    return s.sort((a, b) => {
+      const diff = relevanceScore(b, state.query) - relevanceScore(a, state.query);
+      return diff !== 0 ? diff : base(a, b);
+    });
   }
+  return s.sort(base);
 }
 
 // ── Filter count badges ────────────────────────────────────────────────────
@@ -743,13 +752,36 @@ function typeBadgeClass(t) {
   return 'bt-other';
 }
 
-function statusBadge(s) {
-  if (!s) return '';
+function statusBadge(s, publisher) {
+  if (!s) {
+    if (publisher === 'ANS (CI-SIS)') return '<span class="badge bs-pub">Publié</span>';
+    return '';
+  }
   if (s === 'ci-build' || s === 'draft') return `<span class="badge bs-dev" title="${esc(s)}">Dev</span>`;
   if (s === 'ballot')                    return `<span class="badge bs-bal">Ballot</span>`;
   if (s === 'trial-use' || s === 'release' || s === 'normative+trial-use') return `<span class="badge bs-stu">STU</span>`;
   if (s === 'final-text' || s === 'active' || s === 'normative') return `<span class="badge bs-fin">Final</span>`;
   return '';
+}
+
+function relevanceScore(spec, query) {
+  if (!query) return 0;
+  const tokens = norm(query).split(/\s+/).filter(Boolean);
+  if (!tokens.length) return 0;
+  const title = norm(spec.title || '');
+  const id    = norm(spec.id    || '');
+  const desc  = norm(spec.description || '');
+  const q     = tokens.join(' ');
+  let score = 0;
+  if (title === q)              score += 100;
+  else if (title.startsWith(q)) score += 60;
+  else if (title.includes(q))   score += 30;
+  tokens.forEach(t => {
+    if (title.includes(t)) score += 8;
+    if (id.includes(t))    score += 3;
+    if (desc.includes(t))  score += 1;
+  });
+  return score;
 }
 
 function fhirVersionLabel(versions) {
@@ -783,12 +815,14 @@ function renderCard(spec) {
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.historyUrl)}" target="_blank" rel="noopener">Historique</a>`);
   if (spec.ciBuild)
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.ciBuild)}" target="_blank" rel="noopener">CI build</a>`);
+  if (spec.canonical)
+    links.push(`<button class="card-link card-link-muted copy-btn" data-copy="${esc(spec.canonical)}" title="Copier l'URL canonique">⧉ Copier URL</button>`);
 
   return `<article class="card">
   <div class="card-badges">
     <span class="badge ${pubBadgeClass(spec.publisher)}">${esc(spec.publisher)}</span>
     <span class="badge ${typeBadgeClass(spec.specType)}">${esc(spec.specType)}</span>${fhirLabel ? `
-    <span class="badge bv-fhir">${esc(fhirLabel)}</span>` : ''}${statusBadge(spec.status)}
+    <span class="badge bv-fhir">${esc(fhirLabel)}</span>` : ''}${statusBadge(spec.status, spec.publisher)}
   </div>
   <div class="card-title">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${hl(spec.title, q)}</a>` : hl(spec.title, q)}</div>${spec.id ? `
   <div class="card-id" title="${esc(spec.id)}">${hl(spec.id, q)}</div>` : ''}${spec.description ? `
@@ -810,7 +844,13 @@ function renderResults() {
     : `${total} spécification${total !== 1 ? 's' : ''}`;
 
   if (sorted.length === 0) {
-    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">🔍</div><p>Aucune spécification ne correspond.</p></div>`;
+    const hasQ = state.query;
+    const hasF = state.filters.publisher !== 'all' || state.filters.specType !== 'all' || state.filters.status !== 'all';
+    let msg;
+    if (hasQ && hasF) msg = `Aucun résultat pour « ${esc(state.query)} » avec ces filtres — essayez de retirer un filtre.`;
+    else if (hasQ)   msg = `Aucun résultat pour « ${esc(state.query)} » — essayez d'autres mots-clés.`;
+    else             msg = 'Aucune spécification ne correspond aux filtres sélectionnés.';
+    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">🔍</div><p>${msg}</p></div>`;
   } else {
     resultsEl.innerHTML = sorted.map(renderCard).join('');
   }
@@ -898,6 +938,18 @@ function setupEvents() {
   });
 
   refreshBtn.addEventListener('click', () => tryLiveFetch({ silent: false }));
+
+  resultsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    const text = btn.dataset.copy;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Copié';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1500);
+    }).catch(() => {});
+  });
 
   document.querySelectorAll('.eq-chip').forEach(chip => {
     chip.addEventListener('click', () => {

@@ -69,6 +69,14 @@ cat > "$TMP/cissis.json" << 'ENDJSON'
 ]
 ENDJSON
 
+# ── Static external FHIR IGs (referenced on interop.esante.gouv.fr/ig/ext/) ──
+cat > "$TMP/extra_fhir.json" << 'ENDJSON'
+[
+  {"id":"inca.fhir.uv.osiris","title":"FHIR Osiris Implementation Guide","canonical":"https://ig-osiris.cancer.fr/ig/osiris","publisher":"INCa","latestVersion":"1.1.0","latestDate":"2025-04-03","latestUrl":"https://ig-osiris.cancer.fr/ig/osiris/1.1.0","ciBuild":null,"historyUrl":"https://ig-osiris.cancer.fr/ig/osiris/history.html"},
+  {"id":"ltsi.fhir.oncofair","title":"OncoFAIR","canonical":"http://oncofair-ig.kereval.cloud","publisher":"KEREVAL","latestVersion":"0.1.0","latestDate":"2025-11-17","latestUrl":"http://oncofair-ig.kereval.cloud/ltsi.fhir.oncofair","ciBuild":"https://oncofair.github.io/FHIR-ImplementationGuide-Article/main/ig/","historyUrl":"http://oncofair-ig.kereval.cloud/history.html"}
+]
+ENDJSON
+
 # ── Preserve description/status/fhirVersion from previous run ────────────────
 if [[ -f "$OUT" ]]; then
   jq '[(.specs // [])[] | select(.description != null and .description != "") | {(.id): .description}] | add // {}' \
@@ -92,6 +100,7 @@ jq -n \
   --slurpfile hl7_fr       "$TMP/hl7_fr.json" \
   --slurpfile hl7_global   "$TMP/hl7_global.json" \
   --slurpfile cissis       "$TMP/cissis.json" \
+  --slurpfile extra_fhir   "$TMP/extra_fhir.json" \
   --slurpfile descs        "$TMP/descs.json" \
   --slurpfile prev_status  "$TMP/prev_status.json" \
   --slurpfile prev_fhir    "$TMP/prev_fhir.json" \
@@ -143,6 +152,24 @@ def normalize_hl7_global(data):
       status:        ""
     });
 
+def normalize_extra_fhir(data):
+  to_arr(data)
+  | map({
+      id:            .id,
+      title:         .title,
+      description:   "",
+      canonical:     .canonical,
+      publisher:     .publisher,
+      specType:      "FHIR",
+      fhirVersion:   [],
+      latestVersion: .latestVersion,
+      latestDate:    .latestDate,
+      latestUrl:     .latestUrl,
+      ciBuild:       .ciBuild,
+      historyUrl:    .historyUrl,
+      status:        ""
+    });
+
 def normalize_cissis(data):
   to_arr(data)
   | map({
@@ -168,7 +195,8 @@ def normalize_cissis(data):
   normalize_registry(src($ans_cda);    "ANS";        "CDA")   +
   normalize_registry(src($hl7_fr);     "HL7 France"; "FHIR")  +
   normalize_hl7_global(src($hl7_global))                      +
-  normalize_cissis(src($cissis))
+  normalize_cissis(src($cissis))                              +
+  normalize_extra_fhir(src($extra_fhir))
 )
 | map(. as $s |
     .description = (
@@ -251,6 +279,40 @@ jq --slurpfile enrich "$TMP/enrichment.json" '
     | .status = (if (($e.status // "") | length) > 0 then $e.status elif (.status // "" | length) > 0 then .status else "" end)
   ))}
 ' "$OUT" > "$TMP/enriched.json" && mv "$TMP/enriched.json" "$OUT"
+
+# ── Pass 3 : CI-SIS FHIR detection (checks for ci-sis-logo.png on IG index) ──
+log "Detecting CI-SIS FHIR IGs..."
+> "$TMP/cissis_fhir_ids.txt"
+
+while IFS=$'\t' read -r id canonical; do
+  [[ -z "$canonical" ]] && continue
+  count=$(curl -sf --max-time 12 "${canonical}/" 2>/dev/null | grep -c 'ci-sis-logo\.png' || echo "0")
+  if [[ "$count" -gt "0" ]]; then
+    echo "$id" >> "$TMP/cissis_fhir_ids.txt"
+    log "  CI-SIS: $id"
+  fi
+done < <(jq -r '
+  .specs[] |
+  select(
+    .publisher == "ANS" and
+    .specType != "CDA" and
+    (.canonical // "" | startswith("http")) and
+    (.canonical // "" | contains("offres-services") | not)
+  ) |
+  "\(.id)\t\(.canonical)"
+' "$OUT")
+
+if [[ -s "$TMP/cissis_fhir_ids.txt" ]]; then
+  cissis_ids=$(jq -R . "$TMP/cissis_fhir_ids.txt" | jq -sc .)
+  jq --argjson ids "$cissis_ids" '
+    . + {specs: (.specs | map(
+      if (.id | IN($ids[])) then .publisher = "ANS (CI-SIS)" else . end
+    ))}
+  ' "$OUT" > "$TMP/cissis_applied.json" && mv "$TMP/cissis_applied.json" "$OUT"
+  log "CI-SIS detection: $(wc -l < "$TMP/cissis_fhir_ids.txt" | tr -d ' ') IGs marked."
+else
+  log "CI-SIS detection: no new IGs found."
+fi
 
 COUNT=$(jq '.count' "$OUT")
 log "Done. $COUNT specs written to $OUT (with descriptions + fhirVersion + status)"
