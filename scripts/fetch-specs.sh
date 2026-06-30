@@ -1,37 +1,32 @@
 #!/usr/bin/env bash
 # Regenerates data/specs.json by fetching all French interop spec registries.
 # Merges live data with existing descriptions (preserved from previous run).
-# Outputs the merged JSON to data/specs.json.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 OUT="$REPO_ROOT/data/specs.json"
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
 
 log() { echo "[fetch-specs] $*" >&2; }
 
-# Safe fetch: returns "null" on error (jq handles null arrays gracefully)
-fetch() {
-  local url="$1"
+# Safe fetch to a file: writes "null" on error
+fetch_to() {
+  local url="$1" dest="$2"
   log "Fetching $url"
-  curl -sf --max-time 30 --retry 2 "$url" 2>/dev/null || echo "null"
+  curl -sf --max-time 30 --retry 2 "$url" > "$dest" 2>/dev/null || echo "null" > "$dest"
 }
 
-# ── Load existing descriptions to preserve them ──────────────────────────────
-EXISTING_DESCS="{}"
-if [[ -f "$OUT" ]]; then
-  EXISTING_DESCS=$(jq '[(.specs // [])[] | select(.description != null and .description != "") | {(.id): .description}] | add // {}' "$OUT" 2>/dev/null || echo "{}")
-fi
-
 # ── Fetch all sources ─────────────────────────────────────────────────────────
-ANS_FHIR=$(fetch "https://interop.esante.gouv.fr/ig/fhir/package-registry.json")
-ANS_OTHER=$(fetch "https://interop.esante.gouv.fr/ig/package-registry.json")
-HL7_FR=$(fetch "https://hl7.fr/ig/fhir/package-registry.json")
-HL7_GLOBAL=$(fetch "https://raw.githubusercontent.com/FHIR/ig-registry/master/fhir-ig-list.json")
+fetch_to "https://interop.esante.gouv.fr/ig/fhir/package-registry.json" "$TMP/ans_fhir.json"
+fetch_to "https://interop.esante.gouv.fr/ig/package-registry.json"      "$TMP/ans_other.json"
+fetch_to "https://hl7.fr/ig/fhir/package-registry.json"                 "$TMP/hl7_fr.json"
+fetch_to "https://raw.githubusercontent.com/FHIR/ig-registry/master/fhir-ig-list.json" "$TMP/hl7_global.json"
 
 # ── Static CI-SIS CDA volets (PDF-only, no machine-readable catalog) ──────────
-read -r -d '' CISSIS_STATIC << 'ENDJSON' || true
+cat > "$TMP/cissis.json" << 'ENDJSON'
 [
   {"id":"cissis.cda.fr.structuration-minimale","title":"Structuration minimale des documents de santé (CI-SIS)","latestVersion":"1.16.8"},
   {"id":"cissis.cda.fr.ips-fr","title":"Synthèse médicale — IPS-FR (CI-SIS)","latestVersion":"2024.01"},
@@ -49,21 +44,35 @@ read -r -d '' CISSIS_STATIC << 'ENDJSON' || true
 ]
 ENDJSON
 
-# ── Normalize + merge with jq ─────────────────────────────────────────────────
-jq -n \
-  --argjson ans_fhir  "$ANS_FHIR" \
-  --argjson ans_other "$ANS_OTHER" \
-  --argjson hl7_fr    "$HL7_FR" \
-  --argjson hl7_global "$HL7_GLOBAL" \
-  --argjson cissis    "$CISSIS_STATIC" \
-  --argjson descs     "$EXISTING_DESCS" \
-  --arg     ts        "$TIMESTAMP" \
-'
-# Normalize ANS/HL7-France package-registry format
-def to_arr: if . == null then [] elif type == "array" then . else (.guides // .packages // []) end;
+# ── Extract existing descriptions to preserve them ────────────────────────────
+if [[ -f "$OUT" ]]; then
+  jq '[(.specs // [])[] | select(.description != null and .description != "") | {(.id): .description}] | add // {}' \
+    "$OUT" > "$TMP/descs.json" 2>/dev/null || echo "{}" > "$TMP/descs.json"
+else
+  echo "{}" > "$TMP/descs.json"
+fi
 
-def normalize_registry(publisher; spec_type):
-  to_arr
+# ── Normalize + merge with jq (using file inputs, no arg size limit) ──────────
+jq -n \
+  --slurpfile ans_fhir  "$TMP/ans_fhir.json" \
+  --slurpfile ans_other "$TMP/ans_other.json" \
+  --slurpfile hl7_fr    "$TMP/hl7_fr.json" \
+  --slurpfile hl7_global "$TMP/hl7_global.json" \
+  --slurpfile cissis    "$TMP/cissis.json" \
+  --slurpfile descs     "$TMP/descs.json" \
+  --arg ts              "$TIMESTAMP" \
+'
+# --slurpfile wraps the value in an array; unwrap with .[0]
+def src(f): f[0];
+
+def to_arr(x):
+  if x == null then []
+  elif (x | type) == "array" then x
+  else (x.guides // x.packages // [])
+  end;
+
+def normalize_registry(data; publisher; spec_type):
+  to_arr(data)
   | map(select(. != null and ((.["package-id"] // .id) != null)))
   | map({
       id:            (.["package-id"] // .id // ""),
@@ -80,9 +89,8 @@ def normalize_registry(publisher; spec_type):
       historyUrl:    (.history // ((.canonical // "") + "/history.html"))
     });
 
-# Normalize HL7 global registry — filter French entries
-def normalize_hl7_global:
-  to_arr
+def normalize_hl7_global(data):
+  to_arr(data)
   | map(select(.country == "fr" or .language == "fr"))
   | map({
       id:            (.["npm-name"] // ""),
@@ -99,9 +107,8 @@ def normalize_hl7_global:
       historyUrl:    (.history // null)
     });
 
-# Normalize static CI-SIS entries
-def normalize_cissis:
-  ($cissis // [])
+def normalize_cissis(data):
+  to_arr(data)
   | map({
       id:            .id,
       title:         .title,
@@ -119,21 +126,23 @@ def normalize_cissis:
 
 # Merge all sources
 (
-  ($ans_fhir  | normalize_registry("ANS";        "FHIR"))  +
-  ($ans_other | normalize_registry("ANS";        "Autre")) +
-  ($hl7_fr    | normalize_registry("HL7 France"; "FHIR"))  +
-  ($hl7_global | normalize_hl7_global)                     +
-  normalize_cissis
+  normalize_registry(src($ans_fhir);  "ANS";        "FHIR")  +
+  normalize_registry(src($ans_other); "ANS";        "Autre") +
+  normalize_registry(src($hl7_fr);    "HL7 France"; "FHIR")  +
+  normalize_hl7_global(src($hl7_global))                     +
+  normalize_cissis(src($cissis))
 )
-# Restore descriptions from previous run for entries where API gives none
-| map(. as $s | .description = (if (.description // "" | length) > 0 then .description else ($descs[.id] // "") end))
-# Deduplicate by canonical (keep first occurrence)
-| (. | indices(map(.canonical)) | . as $idx |
-   [ range(length) | select(. as $i | $idx[.] == $i) ] | map(.[. as $i | . as $_ | $i]) )
-| . as $deduped
-# Actually simpler dedup:
-| group_by(.canonical)
-| map(sort_by(.publisher) | .[0])
+# Restore descriptions from previous run
+| map(. as $s |
+    .description = (
+      if (.description // "" | length) > 0 then .description
+      else (src($descs)[.id] // "")
+      end
+    )
+  )
+# Deduplicate by canonical (keep first occurrence per canonical)
+| . as $all
+| [ to_entries[] | select(.value.canonical as $c | ($all[:(.key)] | map(.canonical) | index($c)) == null) | .value ]
 | sort_by([.publisher, .title])
 | {
     lastUpdated: $ts,
