@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-06-30T15:38:49Z",
-  "count": 66,
+  "lastUpdated": "2026-06-30T15:59:41Z",
+  "count": 67,
   "specs": [
     {
       "id": "ans.document.fr.core",
@@ -41,7 +41,7 @@
       "title": "Cercle De Soins",
       "description": "Spécification FHIR pour la gestion du Cercle De Soins du patient : liste des professionnels et organisations impliqués dans sa prise en charge.",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/cds",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -58,7 +58,7 @@
       "title": "Doctrine et gouvernance du cadre d'interopérabilité des systèmes d'informations en santé (CI-SIS).",
       "description": "Doctrine d'urbanisation et de gouvernance du Cadre d'Interopérabilité des Systèmes d'Information de Santé (CI-SIS).",
       "canonical": "https://interop.esante.gouv.fr/ig/doctrine",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "Autre",
       "fhirVersion": [
         "4.0.1"
@@ -109,7 +109,7 @@
       "title": "Guide d'implémentation FHIR - Gestion d'Agendas Partagés",
       "description": "Guide FHIR pour la gestion et le partage d'agendas de santé : prise de rendez-vous, disponibilités, créneaux.",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/gap",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -126,7 +126,7 @@
       "title": "Guide d'implémentation FHIR - Mesures de santé",
       "description": "Spécification FHIR pour l'échange de mesures de santé : poids, taille, pression artérielle, glycémie, fréquence cardiaque, SpO2.",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/mesures",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -279,7 +279,7 @@
       "title": "Médicosocial - Transfert de données DUI",
       "description": "Spécification FHIR pour le transfert de données du Dossier de l'Usager Informatisé (DUI) dans le secteur médico-social.",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/tddui",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -296,7 +296,7 @@
       "title": "Partage de Documents de Santé en mobilité (PDSm)",
       "description": "Guide FHIR pour le partage de documents de santé en mobilité, basé sur le profil IHE MHD (Mobile access to Health Documents).",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/pdsm",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -313,7 +313,7 @@
       "title": "Référentiel Unique de l'Interopérabilité du Médicament",
       "description": "FHIR IG pour le Référentiel Unique de l'Interopérabilité du Médicament : codification, équivalences, données communes médicament.",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/ruim",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -398,7 +398,7 @@
       "title": "Volet Traçabilité des notifications d'événements",
       "description": "Spécification FHIR pour les notifications d'événements dans les systèmes d'information de santé (subscribe/publish).",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/nde",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -415,7 +415,7 @@
       "title": "Volet Traçabilité des événements",
       "description": "Spécification FHIR pour la traçabilité des événements liés aux échanges et accès aux données de santé (audit).",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/tde",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
@@ -432,7 +432,7 @@
       "title": "Volet Téléradiologie",
       "description": "Ce guide décrit les échanges de données de santé dans le domaine de la téléradiologie",
       "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "HL7v2",
       "fhirVersion": [
         "4.0.1"
@@ -449,7 +449,7 @@
       "title": "[CI-SIS]Volet de transmission d'un document CDA-R2 en HL7v2",
       "description": "Ce document est une spécification d'une transaction de demande de transmission/remplacement/suppression de document(s) clinique(s) en intra-organisation entre un système créateur de documents et une PFI (plateforme d'intermédiation), dans l'objectif de partager et/ou d'échanger ces documents avec les acteurs externes à l'établissement pour : \n Publication de document(s) clinique(s) du patient au DMP (Dossier Médical Partagé),\n Envoi de document(s) clinique(s) du patient à différents destinataires externes à l'établissement au moyen de la MSSanté (Messagerie Sécurisée de Santé)",
       "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "HL7v2",
       "fhirVersion": [
         "4.0.1"
@@ -466,7 +466,7 @@
       "title": "[CI-SIS]Volet transmission au LPS d'un document CDA provenant d'un courriel MSSanté",
       "description": "Ce volet du CI-SIS décrit la possibilité pour un logiciel métier d'une organisation de déléguer à un acteur tiers, la plateforme d'intermédiation (PFI), la capacité de traiter un courriel entrant provenant d'une BAL MSSanté et de générer à partir de ce courriel une demande d'intégration ou de remplacement ou de suppression d'un document clinique en direction de l'application métier consommatrice. Ce volet est à considérer par le lecteur en association avec un autre volet du CI_SIS, le volet « Transmission de document(s) CDA en HL7v2 » de façon à avoir une vision de bout en bout des échanges au travers de la MSSanté (du CREATEUR de la demande de traitement sur un document vers le CONSOMMATEUR final de cette demande).",
       "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss",
-      "publisher": "ANS",
+      "publisher": "ANS (CI-SIS)",
       "specType": "HL7v2",
       "fhirVersion": [
         "4.0.1"
@@ -1036,6 +1036,23 @@
       "ciBuild": "https://interop-sante.github.io/hl7.fhir.fr.analyse-pharma/main/ig/",
       "historyUrl": "https://hl7.fr/ig/fhir/analyse-pharma/history.html",
       "status": "draft"
+    },
+    {
+      "id": "inca.fhir.uv.osiris",
+      "title": "FHIR Osiris Implementation Guide",
+      "description": "This Implementation Guide provides FHIR resources and profiles for the OSIRIS system, allowing standardized integration and interoperability for cancer data exchange through FHIR APIs.",
+      "canonical": "https://ig-osiris.cancer.fr/ig/osiris",
+      "publisher": "INCa",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.1.0",
+      "latestDate": "2025-04-03",
+      "latestUrl": "https://ig-osiris.cancer.fr/ig/osiris/1.1.0",
+      "ciBuild": null,
+      "historyUrl": "https://ig-osiris.cancer.fr/ig/osiris/history.html",
+      "status": "Milestone"
     },
     {
       "id": "ltsi.fhir.oncofair",
