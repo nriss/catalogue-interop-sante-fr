@@ -28,28 +28,44 @@ fetch_to "https://hl7.fr/ig/fhir/package-registry.json"                  "$TMP/h
 fetch_to "https://raw.githubusercontent.com/FHIR/ig-registry/master/fhir-ig-list.json" "$TMP/hl7_global.json"
 
 # ── Static CI-SIS CDA volets (PDF only, no machine-readable catalog) ──────────
+# Sources: https://esante.gouv.fr/offres-services/ci-sis/espace-publication (verified 2026-06-30)
 cat > "$TMP/cissis.json" << 'ENDJSON'
 [
-  {"id":"cissis.cda.fr.structuration-minimale","title":"Structuration minimale des documents de santé","latestVersion":"1.16.8"},
-  {"id":"cissis.cda.fr.ips-fr","title":"Synthèse médicale — Patient Summary (IPS-FR)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.dlu","title":"Dossier de Liaison d'Urgence (DLU)","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.cr-bio","title":"Compte-rendu de biologie médicale","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cr-img","title":"Compte-rendu d'imagerie médicale","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.ep-med","title":"ePrescription de médicaments","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.ep-dm","title":"ePrescription de dispositifs médicaux","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.vac","title":"Vaccination","latestVersion":"2023.01"},
-  {"id":"cissis.cda.fr.tlm","title":"Télémédecine","latestVersion":"2026.01"},
-  {"id":"cissis.cda.fr.frcp","title":"Fiche de Réunion de Concertation Pluridisciplinaire (RCP) en oncologie","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.obp","title":"Obstétrique et périnatalité","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cse","title":"Certificats de santé de l'enfant (CS8, CS9, CS24)","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.sdm-mr","title":"Dataset maladies rares","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.lls","title":"Lettre de liaison à la sortie d'hospitalisation","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cr-ope","title":"Compte-rendu opératoire","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cr-consult","title":"Compte-rendu de consultation","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.phrm","title":"Plan personnalisé de soins (PPS) — Médecine du travail","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.ldm","title":"Lettre de demande / Lettre de référence","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.vsm","title":"Volet de synthèse médicale (VSM)","latestVersion":"2023.01"},
-  {"id":"cissis.cda.fr.tra","title":"Transfert d'un patient (TRA)","latestVersion":"2024.01"}
+  {"id":"cissis.cda.fr.structuration-minimale","title":"Structuration minimale des documents de santé","latestVersion":"1.16.8","url":"https://esante.gouv.fr/volet-structuration-minimale-de-documents-de-sante"},
+  {"id":"cissis.cda.fr.modeles-contenus","title":"Modèles de contenus CDA","latestVersion":"3.15","url":"https://esante.gouv.fr/volet-de-reference-modeles-de-contenus-cda"},
+  {"id":"cissis.cda.fr.ips-fr","title":"Synthèse médicale (IPS-FR)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-synthese-medicale"},
+  {"id":"cissis.cda.fr.vsm","title":"Volet de synthèse médicale (VSM)","latestVersion":"2023.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.dlu","title":"Dossier de liaison d'urgence (DLU)","latestVersion":"2025.01","url":"https://esante.gouv.fr/volet-dlu-dossier-de-liaison-durgence"},
+  {"id":"cissis.cda.fr.lls","title":"Lettre de liaison à la sortie d'hospitalisation","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.idl","title":"Informations de liaison (IDL)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-idl-informations-de-liaison"},
+  {"id":"cissis.cda.fr.ldm","title":"Lettre de demande / Lettre de référence","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.tra","title":"Transfert d'un patient (TRA)","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.cr-bio","title":"Compte-rendu de biologie médicale (CR-BIO)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-cr-bio-compte-rendu-dexamens-de-biologie-medicale"},
+  {"id":"cissis.cda.fr.bio-trod","title":"Test rapide d'orientation diagnostique (BIO-TROD)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-bio-trod"},
+  {"id":"cissis.cda.fr.cr-img","title":"Compte-rendu d'imagerie médicale (IMG-CR-IMG)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-imagerie-cr-imagerie"},
+  {"id":"cissis.cda.fr.img-da-img","title":"Demande d'actes d'imagerie (IMG-DA-IMG)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-img-demande-dactes-dimagerie"},
+  {"id":"cissis.cda.fr.cr-ope","title":"Compte-rendu opératoire","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.cr-consult","title":"Compte-rendu de consultation","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.anest-cr-cpa","title":"Compte-rendu de consultation pré-anesthésique (ANEST-CR-CPA)","latestVersion":"2022.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.anest-cr-anest","title":"Compte-rendu d'anesthésie (ANEST-CR-ANEST)","latestVersion":"2022.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.ep-med-dm","title":"ePrescription de produits de santé (médicaments et dispositifs médicaux)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-eprescription-de-produits-de-sante-medicaments-etou-dispositifs-medicaux"},
+  {"id":"cissis.cda.fr.edisp-med","title":"eDispensation de médicaments (eDisp-MED)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-edispensation-de-medicaments"},
+  {"id":"cissis.cda.fr.vac","title":"Vaccination (VAC)","latestVersion":"2023.01","url":"https://esante.gouv.fr/node/12535"},
+  {"id":"cissis.cda.fr.tlm","title":"Télémédecine (TLM)","latestVersion":"2026.01","url":"https://esante.gouv.fr/volet-tlm-telemedecine"},
+  {"id":"cissis.cda.fr.frcp","title":"Fiche de Réunion de Concertation Pluridisciplinaire (FRCP)","latestVersion":"2025.01","url":"https://esante.gouv.fr/volet-frcp-fiche-de-reunion-de-concertation-pluridisciplinaire"},
+  {"id":"cissis.cda.fr.cancer-pps","title":"Programme personnalisé de soins en cancérologie (CANCER-PPS)","latestVersion":"2025.01","url":"https://esante.gouv.fr/volet-cancer-pps-programme-personnalise-de-soins-en-cancerologie"},
+  {"id":"cissis.cda.fr.phrm","title":"Plan personnalisé de soins — Médecine du travail","latestVersion":"2024.01","url":"https://esante.gouv.fr/offres-services/ci-sis/espace-publication"},
+  {"id":"cissis.cda.fr.obp","title":"Obstétrique et périnatalité (OBP)","latestVersion":"2024.01","url":"https://esante.gouv.fr/volet-obp-obstetrique-et-perinatalite"},
+  {"id":"cissis.cda.fr.cse","title":"Certificats de santé de l'enfant — CS8, CS9, CS24","latestVersion":"2025.01","url":"https://esante.gouv.fr/certificats-de-sante-de-lenfant-volet-cse"},
+  {"id":"cissis.cda.fr.cse-mde","title":"Mesures de l'enfant (CSE-MDE)","latestVersion":"2023.01","url":"https://esante.gouv.fr/volet-cse-mesures-de-lenfant"},
+  {"id":"cissis.cda.fr.sdm-mr","title":"Set de données minimum maladies rares (SDM-MR)","latestVersion":"2025.01","url":"https://esante.gouv.fr/volet-sdm-mr-set-de-donnees-minimum-maladies-rares"},
+  {"id":"cissis.cda.fr.avc","title":"Accident vasculaire cérébral (AVC)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-avc-accident-vasculaire-cerebral"},
+  {"id":"cissis.cda.fr.card-f-prc","title":"Cardiologie — Fiches patient à risque (CARD-F-PRC)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-card-f-prc-cardiologie-fiches-patient-risque-en-cardiologie"},
+  {"id":"cissis.cda.fr.cr-gm","title":"Compte-rendu de génétique moléculaire (CR-GM)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-cr-gm-compte-rendu-de-genetique-moleculaire"},
+  {"id":"cissis.cda.fr.cancer-d2lm","title":"Dématérialisation de la seconde lecture de mammographie (CANCER-D2LM)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-cancer-d2lm-dematerialisation-de-la-seconde-lecture-de-mammographie"},
+  {"id":"cissis.cda.fr.oph-bre","title":"Ophtalmologie — Bilan de réfraction (OPH-BRE)","latestVersion":"2022.02","url":"https://esante.gouv.fr/volet-oph-bre"},
+  {"id":"cissis.cda.fr.oph-cr-rtn","title":"Compte-rendu de rétinographie (OPH-CR-RTN)","latestVersion":"2022.01","url":"https://esante.gouv.fr/volet-oph-cr-rtn-compte-rendu-de-retinographie"},
+  {"id":"cissis.cda.fr.cnam-hr","title":"Historique des remboursements (CNAM-HR)","latestVersion":"2021.01","url":"https://esante.gouv.fr/volet-cnam-hr-historique-des-remboursements"}
 ]
 ENDJSON
 
@@ -131,9 +147,9 @@ def normalize_cissis(data):
       fhirVersion:   [],
       latestVersion: .latestVersion,
       latestDate:    null,
-      latestUrl:     "https://esante.gouv.fr/offres-services/ci-sis/espace-publication",
+      latestUrl:     (.url // "https://esante.gouv.fr/offres-services/ci-sis/espace-publication"),
       ciBuild:       null,
-      historyUrl:    null,
+      historyUrl:    (.url // null),
       status:        ""
     });
 
