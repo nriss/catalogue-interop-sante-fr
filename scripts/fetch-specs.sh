@@ -20,9 +20,11 @@ fetch_to() {
 }
 
 # ── Fetch all sources ─────────────────────────────────────────────────────────
-fetch_to "https://interop.esante.gouv.fr/ig/fhir/package-registry.json" "$TMP/ans_fhir.json"
-fetch_to "https://interop.esante.gouv.fr/ig/package-registry.json"      "$TMP/ans_other.json"
-fetch_to "https://hl7.fr/ig/fhir/package-registry.json"                 "$TMP/hl7_fr.json"
+fetch_to "https://interop.esante.gouv.fr/ig/fhir/package-registry.json"  "$TMP/ans_fhir.json"
+fetch_to "https://interop.esante.gouv.fr/ig/package-registry.json"       "$TMP/ans_other.json"
+fetch_to "https://interop.esante.gouv.fr/ig/hl7v2/package-registry.json" "$TMP/ans_hl7v2.json"
+fetch_to "https://interop.esante.gouv.fr/ig/cda/package-registry.json"   "$TMP/ans_cda.json"
+fetch_to "https://hl7.fr/ig/fhir/package-registry.json"                  "$TMP/hl7_fr.json"
 fetch_to "https://raw.githubusercontent.com/FHIR/ig-registry/master/fhir-ig-list.json" "$TMP/hl7_global.json"
 
 # ── Static CI-SIS CDA volets (PDF-only, no machine-readable catalog) ──────────
@@ -54,13 +56,15 @@ fi
 
 # ── Normalize + merge with jq (using file inputs, no arg size limit) ──────────
 jq -n \
-  --slurpfile ans_fhir  "$TMP/ans_fhir.json" \
-  --slurpfile ans_other "$TMP/ans_other.json" \
-  --slurpfile hl7_fr    "$TMP/hl7_fr.json" \
+  --slurpfile ans_fhir   "$TMP/ans_fhir.json" \
+  --slurpfile ans_other  "$TMP/ans_other.json" \
+  --slurpfile ans_hl7v2  "$TMP/ans_hl7v2.json" \
+  --slurpfile ans_cda    "$TMP/ans_cda.json" \
+  --slurpfile hl7_fr     "$TMP/hl7_fr.json" \
   --slurpfile hl7_global "$TMP/hl7_global.json" \
-  --slurpfile cissis    "$TMP/cissis.json" \
-  --slurpfile descs     "$TMP/descs.json" \
-  --arg ts              "$TIMESTAMP" \
+  --slurpfile cissis     "$TMP/cissis.json" \
+  --slurpfile descs      "$TMP/descs.json" \
+  --arg ts               "$TIMESTAMP" \
 '
 # --slurpfile wraps the value in an array; unwrap with .[0]
 def src(f): f[0];
@@ -126,10 +130,12 @@ def normalize_cissis(data):
 
 # Merge all sources
 (
-  normalize_registry(src($ans_fhir);  "ANS";        "FHIR")  +
-  normalize_registry(src($ans_other); "ANS";        "Autre") +
-  normalize_registry(src($hl7_fr);    "HL7 France"; "FHIR")  +
-  normalize_hl7_global(src($hl7_global))                     +
+  normalize_registry(src($ans_fhir);   "ANS";        "FHIR")  +
+  normalize_registry(src($ans_other);  "ANS";        "Autre") +
+  normalize_registry(src($ans_hl7v2);  "ANS";        "HL7v2") +
+  normalize_registry(src($ans_cda);    "ANS";        "CDA")   +
+  normalize_registry(src($hl7_fr);     "HL7 France"; "FHIR")  +
+  normalize_hl7_global(src($hl7_global))                      +
   normalize_cissis(src($cissis))
 )
 # Restore descriptions from previous run
@@ -140,9 +146,15 @@ def normalize_cissis(data):
       end
     )
   )
-# Deduplicate by canonical (keep first occurrence per canonical)
-| . as $all
-| [ to_entries[] | select(.value.canonical as $c | ($all[:(.key)] | map(.canonical) | index($c)) == null) | .value ]
+# Deduplicate: CI-SIS entries all share the same canonical URL, so dedup by id for them;
+# for all others, dedup by canonical (keeps first occurrence = higher-priority source wins)
+| group_by(
+    if .canonical == "https://esante.gouv.fr/offres-services/ci-sis/espace-publication"
+    then .id
+    else .canonical
+    end
+  )
+| map(.[0])
 | sort_by([.publisher, .title])
 | {
     lastUpdated: $ts,
