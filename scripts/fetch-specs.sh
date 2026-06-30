@@ -220,7 +220,7 @@ while IFS=$'\t' read -r id canonical; do
       {
         description: (.introduction // ""),
         fhirVersion: ([($cur.fhirversion // "")] | map(select(length > 0))),
-        status:      ($cur.status // "")
+        status:      (($cur.sequence // "") | if length > 0 then . else ($cur.status // "") end)
       }
     end
   ' 2>/dev/null || echo '{}')
@@ -248,7 +248,7 @@ jq --slurpfile enrich "$TMP/enrichment.json" '
         else []
         end
       )
-    | .status = (if (.status // "" | length) > 0 then .status else ($e.status // "") end)
+    | .status = (if (($e.status // "") | length) > 0 then $e.status elif (.status // "" | length) > 0 then .status else "" end)
   ))}
 ' "$OUT" > "$TMP/enriched.json" && mv "$TMP/enriched.json" "$OUT"
 

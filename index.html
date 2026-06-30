@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spécifications d'interopérabilité françaises</title>
   <meta name="description" content="Catalogue de recherche des spécifications et guides d'implémentation d'interopérabilité en santé publiés en France">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23003f7e'/><text x='16' y='24' font-family='sans-serif' font-size='22' font-weight='bold' fill='white' text-anchor='middle'>i</text></svg>">
   <link rel="search" type="application/opensearchdescription+xml" href="./opensearch.xml" title="Specs Interop FR">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -373,6 +374,39 @@
     footer a { color: rgba(255,255,255,.72); text-decoration: none; }
     footer a:hover { text-decoration: underline; color: white; }
 
+    /* ── Chips thématiques ── */
+    .header-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.38rem;
+      justify-content: center;
+      margin-top: 1rem;
+      max-width: 700px;
+      margin-inline: auto;
+      align-items: center;
+    }
+    .header-chips-label {
+      font-size: 0.67rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+    }
+    .eq-chip {
+      padding: 0.22rem 0.72rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.88);
+      border-radius: 2rem;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+      font-family: inherit;
+      letter-spacing: 0.01em;
+    }
+    .eq-chip:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.55); color: white; }
+    .eq-chip:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       header { padding: 1.5rem 1rem 1.25rem; }
@@ -388,7 +422,20 @@
 <header>
   <div class="header-logo">🇫🇷</div>
   <h1>Spécifications d'interopérabilité françaises</h1>
-  <p>FHIR · CDA · HL7v2 · ANS · HL7 France · CI-SIS</p>
+  <p>Identifiez les standards FHIR, CDA et HL7v2 à implémenter pour votre cas d'usage — ANS, HL7 France, CI-SIS</p>
+  <div class="header-chips" aria-label="Exemples de recherche thématique">
+    <span class="header-chips-label">Exemples :</span>
+    <button class="eq-chip" data-query="prescription">Prescriptions</button>
+    <button class="eq-chip" data-query="biologie">Biologie</button>
+    <button class="eq-chip" data-query="imagerie">Imagerie</button>
+    <button class="eq-chip" data-query="vaccination">Vaccination</button>
+    <button class="eq-chip" data-query="annuaire">Annuaire santé</button>
+    <button class="eq-chip" data-query="synthèse">Synthèse médicale</button>
+    <button class="eq-chip" data-query="urgence">Urgences</button>
+    <button class="eq-chip" data-query="messagerie">Messagerie sécurisée</button>
+    <button class="eq-chip" data-query="cancer">Cancérologie</button>
+    <button class="eq-chip" data-query="maladies rares">Maladies rares</button>
+  </div>
 </header>
 
 <div class="search-bar">
@@ -398,7 +445,7 @@
         <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
         </svg>
-        <input type="search" id="searchInput" placeholder="Rechercher une spécification…" autocomplete="off" spellcheck="false" aria-label="Rechercher">
+        <input type="search" id="searchInput" placeholder="Ex : imagerie, prescription, annuaire…" autocomplete="off" spellcheck="false" aria-label="Rechercher une spécification">
         <button class="clear-btn" id="clearBtn" aria-label="Effacer">✕</button>
         <span class="search-hint" id="searchHint">/</span>
       </div>
@@ -700,7 +747,7 @@ function statusBadge(s) {
   if (s === 'ci-build' || s === 'draft') return `<span class="badge bs-dev" title="${esc(s)}">Dev</span>`;
   if (s === 'ballot')                    return `<span class="badge bs-bal">Ballot</span>`;
   if (s === 'trial-use' || s === 'release' || s === 'normative+trial-use') return `<span class="badge bs-stu">STU</span>`;
-  if (s === 'final-text' || s === 'active') return `<span class="badge bs-fin">Final</span>`;
+  if (s === 'final-text' || s === 'active' || s === 'normative') return `<span class="badge bs-fin">Final</span>`;
   return '';
 }
 
@@ -850,6 +897,18 @@ function setupEvents() {
   });
 
   refreshBtn.addEventListener('click', () => tryLiveFetch({ silent: false }));
+
+  document.querySelectorAll('.eq-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const q = chip.dataset.query;
+      searchInput.value = q;
+      state.query = q;
+      clearBtn.classList.add('visible');
+      searchHint.style.display = 'none';
+      renderResults();
+      requestAnimationFrame(() => searchInput.focus());
+    });
+  });
 }
 
 // ── Go ─────────────────────────────────────────────────────────────────────
