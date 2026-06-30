@@ -619,8 +619,8 @@ function matchesSpec(spec, filters, query) {
   if (sF !== 'all') {
     const s = spec.status || '';
     if (sF === 'draft')      { if (s !== 'draft' && s !== 'ci-build') return false; }
-    else if (sF === 'trial-use') { if (s !== 'trial-use' && s !== 'release') return false; }
-    else if (sF === 'final-text') { if (s !== 'final-text' && s !== 'active') return false; }
+    else if (sF === 'trial-use') { if (s !== 'trial-use' && s !== 'release' && s !== 'normative+trial-use') return false; }
+    else if (sF === 'final-text') { if (s !== 'final-text' && s !== 'active' && s !== 'normative') return false; }
     else if (s !== sF) return false;
   }
   if (!query) return true;
@@ -699,7 +699,7 @@ function statusBadge(s) {
   if (!s) return '';
   if (s === 'ci-build' || s === 'draft') return `<span class="badge bs-dev" title="${esc(s)}">Dev</span>`;
   if (s === 'ballot')                    return `<span class="badge bs-bal">Ballot</span>`;
-  if (s === 'trial-use' || s === 'release') return `<span class="badge bs-stu">STU</span>`;
+  if (s === 'trial-use' || s === 'release' || s === 'normative+trial-use') return `<span class="badge bs-stu">STU</span>`;
   if (s === 'final-text' || s === 'active') return `<span class="badge bs-fin">Final</span>`;
   return '';
 }
