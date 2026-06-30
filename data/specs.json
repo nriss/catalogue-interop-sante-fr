@@ -1,7 +1,24 @@
 {
-  "lastUpdated": "2026-06-30T15:04:01Z",
+  "lastUpdated": "2026-06-30T15:38:49Z",
   "count": 66,
   "specs": [
+    {
+      "id": "ans.document.fr.core",
+      "title": "ANS IG document core",
+      "description": "Describes the exchange of medical and medico-social documents by secure health messaging in My Health Space which is intended to improve the continuity and coordination of care.",
+      "canonical": "https://interop.esante.gouv.fr/ig/document/core",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0-snapshot",
+      "latestDate": null,
+      "latestUrl": "https://interop.esante.gouv.fr/ig/document/core/0.1.0-snapshot",
+      "ciBuild": "https://ansforge.github.io/interop-IG-document-core/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/document/core/history.html",
+      "status": "Draft"
+    },
     {
       "id": "ans.fhir.fr.mss",
       "title": "API Messagerie Sécurisée de Santé (MSSanté)",
@@ -17,7 +34,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/0.1.0-snapshot",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-api-messagerie-securisee-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/history.html",
-      "status": "draft"
+      "status": "Snapshot"
     },
     {
       "id": "ans.fhir.fr.cds",
@@ -34,7 +51,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cds/2.0.1",
       "ciBuild": "https://ansforge.github.io/IG-fhir-mesures-de-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/cds/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fr.doctrine",
@@ -51,7 +68,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/doctrine/0.1.0",
       "ciBuild": "https://ansforge.github.io/IG-doctrine-ci-sis/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/doctrine/history.html",
-      "status": "trial-use"
+      "status": "Publications"
     },
     {
       "id": "ans.fr.documentation",
@@ -85,7 +102,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/1.2.0-snapshot-2",
       "ciBuild": "https://ansforge.github.io/IG-fhir-annuaire/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/history.html",
-      "status": "release"
+      "status": "final-text"
     },
     {
       "id": "ans.fhir.fr.gap",
@@ -102,7 +119,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/gap/3.0.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-gestion-agendas-partages/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/gap/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fhir.fr.mesures",
@@ -119,7 +136,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mesures/3.2.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-mesures-de-sante/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/mesures/history.html",
-      "status": "release"
+      "status": "final-text"
     },
     {
       "id": "ans.fhir.fr.cdl",
@@ -136,7 +153,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/3.0.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-cdl-de-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fhir.fr.eprescription",
@@ -153,7 +170,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/eprescription/1.1.0-ballot",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-ePrescription/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/eprescription/history.html",
-      "status": "ballot"
+      "status": "STU 1"
     },
     {
       "id": "ans.fhir.fr.telesurveillance",
@@ -170,7 +187,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/telesurveillance/0.1.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-telesurveillance-de-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/telesurveillance/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fr.nos",
@@ -204,7 +221,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/cda/tddui/1.0.0",
       "ciBuild": "https://ansforge.github.io/IG-contenu-cda-medicosocial-transfert-donnees-dui/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/cda/tddui/history.html",
-      "status": "release"
+      "status": "trial-implementation"
     },
     {
       "id": "ans.fhir.fr.eclaire",
@@ -221,7 +238,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/eclaire/0.3.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-essais-cliniques/ig/main/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/eclaire/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fr.mos",
@@ -238,7 +255,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/mos/0.1.0-ballot",
       "ciBuild": "https://ansforge.github.io/IG-modele-objets-sante/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/mos/history.html",
-      "status": "ballot"
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.sdo",
@@ -255,7 +272,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/sdo/4.0.7",
       "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-suivi-decisions-orientation/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/sdo/history.html",
-      "status": "release"
+      "status": "trial-implementation"
     },
     {
       "id": "ans.fhir.fr.tddui",
@@ -272,7 +289,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.3.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-transfert-donnees-dui/ig/main/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/history.html",
-      "status": "release"
+      "status": "trial-implementation"
     },
     {
       "id": "ans.fhir.fr.pdsm",
@@ -289,7 +306,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/3.1.1",
       "ciBuild": "https://ansforge.github.io/IG-fhir-partage-de-documents-de-sante/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fhir.fr.ruim",
@@ -306,7 +323,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/ruim/0.0.1",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-referentiel-medicament/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/ruim/history.html",
-      "status": "trial-use"
+      "status": "STU 1"
     },
     {
       "id": "ans.fhir.fr.ror",
@@ -323,7 +340,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/ror/0.7.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-repertoire-offre-ressources-sante/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/ror/history.html",
-      "status": "trial-use"
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.sas",
@@ -340,7 +357,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/sas/1.2.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir/service-acces-aux-soins/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/sas/history.html",
-      "status": "normative+trial-use"
+      "status": "trial-use"
     },
     {
       "id": "ans.fr.securisation-transport",
@@ -357,7 +374,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/securisation-transport/1.2.0",
       "ciBuild": "https://ansforge.github.io/IG-securisation-transport-api-rest/ig/main/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/securisation-transport/history.html",
-      "status": "release"
+      "status": "trial-use"
     },
     {
       "id": "ans.fhir.fr.tdmi",
@@ -374,7 +391,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tdmi/3.0.0-ballot",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-tracabilite-dmi/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tdmi/history.html",
-      "status": "ballot"
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.nde",
@@ -391,7 +408,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/nde/3.0.0",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-notification-evenements/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/nde/history.html",
-      "status": "trial-use"
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.tde",
@@ -408,7 +425,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tde/2.0.0",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-tracabilite-evenements/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tde/history.html",
-      "status": "trial-use"
+      "status": "STU1"
     },
     {
       "id": "ans.hl7v2.fr.teleradiologie",
@@ -425,7 +442,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie/0.2.0",
       "ciBuild": "https://ansforge.github.io/interop-ig-hl7v2-teleradiologie/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie/history.html",
-      "status": "release"
+      "status": "trial-implementation"
     },
     {
       "id": "ans.hl7v2.fr.trans-cda-r2",
@@ -442,7 +459,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2/2.1.2",
       "ciBuild": "https://ansforge.github.io/IG-hl7v2-volet-transmission-document-cda-r2/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2/history.html",
-      "status": "trial-use"
+      "status": "Publications"
     },
     {
       "id": "ans.hl7v2.fr.trans-cda-mss",
@@ -459,7 +476,7 @@
       "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss/1.1.2",
       "ciBuild": "https://ansforge.github.io/IG-hl7v2-volet-trans-lps-doc-cda-courriel-mss/main/ig/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss/history.html",
-      "status": "trial-use"
+      "status": "Publications"
     },
     {
       "id": "cissis.cda.fr.avc",
@@ -987,23 +1004,6 @@
       "status": ""
     },
     {
-      "id": "ans.document.fr.core",
-      "title": "ANS IG document core",
-      "description": "Describes the exchange of medical and medico-social documents by secure health messaging in My Health Space which is intended to improve the continuity and coordination of care.",
-      "canonical": "https://interop.esante.gouv.fr/ig/document/core",
-      "publisher": "ANS (FR)",
-      "specType": "FHIR",
-      "fhirVersion": [
-        "4.0.1"
-      ],
-      "latestVersion": "0.1.0-snapshot",
-      "latestDate": null,
-      "latestUrl": "https://interop.esante.gouv.fr/ig/document/core/0.1.0-snapshot",
-      "ciBuild": "https://ansforge.github.io/interop-IG-document-core/main/ig",
-      "historyUrl": "https://interop.esante.gouv.fr/ig/document/core/history.html",
-      "status": "draft"
-    },
-    {
       "id": "hl7.fhir.fr.core",
       "title": "Guide d'implémentation Fr Core",
       "description": "Profils FHIR de base pour la France (HL7 France) : adaptations nationales des ressources Patient, Practitioner, Organization, Encounter, etc.",
@@ -1018,7 +1018,7 @@
       "latestUrl": "https://hl7.fr/ig/fhir/core/2.2.0",
       "ciBuild": "https://interop-sante.github.io/hl7.fhir.fr.core/main/ig",
       "historyUrl": "https://hl7.fr/ig/fhir/core/history.html",
-      "status": "trial-use"
+      "status": "final-text"
     },
     {
       "id": "hl7.fhir.fr.analyse-pharma",
@@ -1035,7 +1035,7 @@
       "latestUrl": "https://hl7.fr/ig/fhir/analyse-pharma/0.1.0-ballot",
       "ciBuild": "https://interop-sante.github.io/hl7.fhir.fr.analyse-pharma/main/ig/",
       "historyUrl": "https://hl7.fr/ig/fhir/analyse-pharma/history.html",
-      "status": "ballot"
+      "status": "draft"
     },
     {
       "id": "ltsi.fhir.oncofair",
