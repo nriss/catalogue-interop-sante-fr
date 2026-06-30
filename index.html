@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spécifications d'interopérabilité françaises</title>
   <meta name="description" content="Catalogue de recherche des spécifications et guides d'implémentation d'interopérabilité en santé publiés en France">
+  <link rel="search" type="application/opensearchdescription+xml" href="./opensearch.xml" title="Specs Interop FR">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -46,83 +47,85 @@
     header {
       background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
       color: white;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 2.25rem 1.5rem 1.75rem;
       text-align: center;
     }
-
-    .header-logo {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
+    .header-logo { font-size: 2rem; margin-bottom: 0.4rem; }
     header h1 {
-      font-size: clamp(1.35rem, 4vw, 1.9rem);
+      font-size: clamp(1.3rem, 4vw, 1.85rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
-
-    header p {
-      font-size: 0.95rem;
-      opacity: 0.82;
-      max-width: 520px;
-      margin: 0 auto;
-    }
+    header p { font-size: 0.92rem; opacity: 0.8; max-width: 520px; margin: 0 auto; }
 
     /* ── Sticky search bar ── */
     .search-bar {
       background: white;
       border-bottom: 1px solid var(--border);
-      padding: 1rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
-
     .search-bar-inner {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
+      gap: 0.65rem;
+    }
+    .search-row {
+      display: flex;
+      align-items: center;
       gap: 0.75rem;
     }
-
     .search-input-wrap {
       position: relative;
-      max-width: 600px;
+      flex: 1;
+      max-width: 560px;
     }
-
     .search-icon {
       position: absolute;
-      left: 0.9rem;
+      left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
       pointer-events: none;
-      flex-shrink: 0;
     }
-
     #searchInput {
       width: 100%;
-      padding: 0.65rem 2.5rem 0.65rem 2.6rem;
-      font-size: 0.95rem;
+      padding: 0.6rem 2.4rem 0.6rem 2.5rem;
+      font-size: 0.92rem;
       border: 2px solid var(--border);
       border-radius: 2rem;
       outline: none;
       transition: border-color 0.15s, box-shadow 0.15s;
       background: var(--bg);
+      font-family: inherit;
     }
-
     #searchInput:focus {
       border-color: var(--blue);
       background: white;
-      box-shadow: 0 0 0 3px rgba(0,94,184,.12);
+      box-shadow: 0 0 0 3px rgba(0,94,184,.1);
     }
-
+    .search-hint {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--grey-light);
+      border-radius: 3px;
+      padding: 0.1rem 0.35rem;
+      pointer-events: none;
+      white-space: nowrap;
+    }
     .clear-btn {
       position: absolute;
-      right: 0.75rem;
+      right: 0.7rem;
       top: 50%;
       transform: translateY(-50%);
       background: none;
@@ -136,115 +139,112 @@
       border-radius: 50%;
       transition: background 0.1s;
     }
-
     .clear-btn:hover { background: var(--grey-light); }
     .clear-btn.visible { display: block; }
+    .search-hint.hidden, .clear-btn + .search-hint { display: none; }
+
+    /* Sort control */
+    .sort-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .sort-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
+    #sortSelect {
+      font-size: 0.78rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.25rem 0.5rem;
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    #sortSelect:focus { outline: none; border-color: var(--blue); }
 
     /* ── Filters ── */
     .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1.25rem;
+      gap: 0.4rem 1.1rem;
       align-items: center;
     }
-
     .filter-group {
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.25rem;
       flex-wrap: wrap;
     }
-
     .filter-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       font-weight: 600;
       white-space: nowrap;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
-
     .filter-btn {
-      padding: 0.25rem 0.7rem;
+      padding: 0.22rem 0.65rem;
       border-radius: 1rem;
       border: 1px solid var(--border);
       background: white;
       color: var(--text-muted);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.12s;
       white-space: nowrap;
       font-family: inherit;
     }
-
     .filter-btn:hover { border-color: var(--blue); color: var(--blue); }
-    .filter-btn.active {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: white;
-      font-weight: 600;
-    }
+    .filter-btn.active { background: var(--blue); border-color: var(--blue); color: white; font-weight: 600; }
+    .filter-btn .fc { font-size: 0.65rem; opacity: 0.75; margin-left: 0.2rem; font-weight: 400; }
+    .filter-btn.active .fc { opacity: 0.85; }
 
-    /* ── Main content ── */
-    .main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      width: 100%;
-      flex: 1;
-    }
+    /* ── Main ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; width: 100%; flex: 1; }
 
     /* ── Status bar ── */
     .status-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.8rem 0;
-      font-size: 0.82rem;
+      padding: 0.7rem 0;
+      font-size: 0.8rem;
       color: var(--text-muted);
       border-bottom: 1px solid var(--border);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.1rem;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
+    .status-left { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
     .data-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      padding: 0.18rem 0.55rem;
+      padding: 0.16rem 0.5rem;
       border-radius: 1rem;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
     }
-
     .data-pill.cached  { background: var(--grey-light); color: var(--grey); }
     .data-pill.live    { background: var(--green-light); color: var(--green); }
     .data-pill.loading { background: var(--blue-light); color: var(--blue); }
     .data-pill.error   { background: var(--red-light); color: var(--red); }
-
     .refresh-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.25rem 0.7rem;
+      padding: 0.22rem 0.65rem;
       border: 1px solid var(--border);
       border-radius: 1rem;
       background: white;
       color: var(--text-muted);
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       cursor: pointer;
       transition: all 0.12s;
       font-family: inherit;
     }
-
     .refresh-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
     .refresh-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
@@ -261,75 +261,68 @@
       background: var(--card-bg);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      padding: 1.1rem 1.15rem;
+      padding: 1.05rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.45rem;
       transition: box-shadow 0.15s, transform 0.15s;
     }
+    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
 
-    .card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-
-    .card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
+    .card-badges { display: flex; flex-wrap: wrap; gap: 0.28rem; }
 
     .badge {
       display: inline-block;
-      padding: 0.15rem 0.5rem;
+      padding: 0.14rem 0.48rem;
       border-radius: 0.3rem;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.03em;
       white-space: nowrap;
       text-transform: uppercase;
     }
 
-    /* Publisher badges */
+    /* Publisher */
     .bp-ans    { background: var(--blue-light); color: var(--blue-dark); }
     .bp-hl7    { background: var(--purple-light); color: var(--purple); }
     .bp-inca   { background: var(--red-light); color: var(--red); }
     .bp-cissis { background: #fff8e1; color: #7b5800; }
     .bp-other  { background: var(--grey-light); color: var(--grey); }
 
-    /* Type badges */
+    /* Type */
     .bt-fhir  { background: var(--green-light); color: var(--green); }
     .bt-hl7v2 { background: var(--purple-light); color: var(--purple); }
     .bt-cda   { background: var(--orange-light); color: var(--orange); }
     .bt-other { background: var(--grey-light); color: var(--grey); }
 
-    /* FHIR version badge */
-    .bv-fhir  { background: #e3f6e8; color: #1b5e20; opacity: 0.85; }
+    /* FHIR version */
+    .bv-fhir { background: #e3f6e8; color: #1b5e20; opacity: 0.9; }
+
+    /* Status */
+    .bs-dev   { background: var(--grey-light); color: var(--grey); }
+    .bs-bal   { background: var(--orange-light); color: var(--orange); }
+    .bs-stu   { background: var(--blue-light); color: var(--blue); }
+    .bs-fin   { background: var(--green-light); color: var(--green); }
 
     .card-title {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: var(--text);
       line-height: 1.35;
     }
-
-    .card-title a {
-      color: inherit;
-      text-decoration: none;
-    }
+    .card-title a { color: inherit; text-decoration: none; }
     .card-title a:hover { color: var(--blue); text-decoration: underline; }
 
     .card-id {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
       font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .card-desc {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       line-height: 1.45;
       display: -webkit-box;
@@ -337,77 +330,56 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
     .card-meta {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       flex-wrap: wrap;
     }
-
-    .card-version {
-      font-weight: 700;
-      color: var(--text);
-    }
-
+    .card-version { font-weight: 700; color: var(--text); }
     .card-sep { opacity: 0.4; }
 
     .card-links {
       display: flex;
-      gap: 0.5rem 1rem;
+      gap: 0.4rem 0.9rem;
       flex-wrap: wrap;
       margin-top: auto;
-      padding-top: 0.5rem;
+      padding-top: 0.45rem;
       border-top: 1px solid var(--border);
     }
-
-    .card-link {
-      font-size: 0.75rem;
-      color: var(--blue);
-      text-decoration: none;
-      white-space: nowrap;
-    }
+    .card-link { font-size: 0.73rem; color: var(--blue); text-decoration: none; white-space: nowrap; }
     .card-link:hover { text-decoration: underline; }
     .card-link-muted { color: var(--text-muted); }
 
     /* ── Empty / loading states ── */
-    .state-msg {
-      grid-column: 1/-1;
-      text-align: center;
-      padding: 4rem 1rem;
-      color: var(--text-muted);
-    }
+    .state-msg { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
     .state-msg .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .state-msg p { font-size: 0.9rem; }
+    .state-msg p { font-size: 0.88rem; }
 
     /* ── Highlight ── */
-    mark {
-      background: #fff176;
-      color: inherit;
-      border-radius: 2px;
-      padding: 0 1px;
-    }
+    mark { background: #fff176; color: inherit; border-radius: 2px; padding: 0 1px; }
 
     /* ── Footer ── */
     footer {
       background: #1a2332;
-      color: rgba(255,255,255,.55);
+      color: rgba(255,255,255,.5);
       text-align: center;
-      padding: 1.5rem 1.5rem;
-      font-size: 0.78rem;
-      line-height: 1.8;
+      padding: 1.4rem 1.5rem;
+      font-size: 0.76rem;
+      line-height: 1.9;
     }
-    footer a { color: rgba(255,255,255,.75); text-decoration: none; }
+    footer a { color: rgba(255,255,255,.72); text-decoration: none; }
     footer a:hover { text-decoration: underline; color: white; }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      header { padding: 1.75rem 1rem 1.5rem; }
+      header { padding: 1.5rem 1rem 1.25rem; }
       .search-bar { padding: 0.75rem 1rem; }
       .main { padding: 0 1rem; }
       #results { grid-template-columns: 1fr; }
+      .sort-wrap { display: none; }
     }
   </style>
 </head>
@@ -416,17 +388,29 @@
 <header>
   <div class="header-logo">🇫🇷</div>
   <h1>Spécifications d'interopérabilité françaises</h1>
-  <p>Guides d'implémentation FHIR, CDA, HL7v2 et spécifications publiés par l'ANS, HL7 France et partenaires</p>
+  <p>FHIR · CDA · HL7v2 · ANS · HL7 France · CI-SIS</p>
 </header>
 
 <div class="search-bar">
   <div class="search-bar-inner">
-    <div class="search-input-wrap">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-      </svg>
-      <input type="search" id="searchInput" placeholder="Rechercher une spécification…" autocomplete="off" spellcheck="false" aria-label="Rechercher">
-      <button class="clear-btn" id="clearBtn" aria-label="Effacer la recherche">✕</button>
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="search" id="searchInput" placeholder="Rechercher une spécification…" autocomplete="off" spellcheck="false" aria-label="Rechercher">
+        <button class="clear-btn" id="clearBtn" aria-label="Effacer">✕</button>
+        <span class="search-hint" id="searchHint">/</span>
+      </div>
+
+      <div class="sort-wrap">
+        <span class="sort-label">Trier</span>
+        <select id="sortSelect" aria-label="Ordre de tri">
+          <option value="date-desc">Date (récent)</option>
+          <option value="alpha">Nom A–Z</option>
+          <option value="publisher">Éditeur</option>
+        </select>
+      </div>
     </div>
 
     <div class="filters" role="group" aria-label="Filtres">
@@ -446,6 +430,14 @@
         <button class="filter-btn" data-filter="specType" data-value="CDA">CDA</button>
         <button class="filter-btn" data-filter="specType" data-value="Autre">Autre</button>
       </div>
+      <div class="filter-group">
+        <span class="filter-label">Statut</span>
+        <button class="filter-btn active" data-filter="status" data-value="all">Tous</button>
+        <button class="filter-btn" data-filter="status" data-value="draft">Dev</button>
+        <button class="filter-btn" data-filter="status" data-value="ballot">Ballot</button>
+        <button class="filter-btn" data-filter="status" data-value="trial-use">STU</button>
+        <button class="filter-btn" data-filter="status" data-value="final-text">Final</button>
+      </div>
     </div>
   </div>
 </div>
@@ -456,8 +448,8 @@
       <span id="resultCount">Chargement…</span>
       <span class="data-pill loading" id="dataIndicator">⟳ Chargement</span>
     </div>
-    <button class="refresh-btn" id="refreshBtn" title="Tenter de récupérer les données en direct depuis les APIs ANS/HL7">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <button class="refresh-btn" id="refreshBtn" title="Récupérer les données en direct depuis les APIs ANS/HL7">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
         <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
       </svg>
@@ -466,10 +458,7 @@
   </div>
 
   <div id="results">
-    <div class="state-msg">
-      <div class="icon">⏳</div>
-      <p>Chargement des spécifications…</p>
-    </div>
+    <div class="state-msg"><div class="icon">⏳</div><p>Chargement des spécifications…</p></div>
   </div>
 </div>
 
@@ -477,11 +466,11 @@
   Sources :
   <a href="https://interop.esante.gouv.fr/ig/" target="_blank" rel="noopener">ANS</a> ·
   <a href="https://hl7.fr/ig/" target="_blank" rel="noopener">HL7 France</a> ·
-  <a href="https://esante.gouv.fr/offres-services/ci-sis/espace-publication" target="_blank" rel="noopener">CI-SIS (CDA)</a> ·
+  <a href="https://esante.gouv.fr/offres-services/ci-sis/espace-publication" target="_blank" rel="noopener">CI-SIS</a> ·
   <a href="https://github.com/FHIR/ig-registry" target="_blank" rel="noopener">HL7 IG Registry</a>
   <br>
   Données rafraîchies automatiquement chaque jour ·
-  <a href="https://github.com/nriss/test-fr-interop-pages" target="_blank" rel="noopener">Code source</a>
+  <a href="https://github.com/nriss/catalogue-interop-sante-fr" target="_blank" rel="noopener">Code source</a>
 </footer>
 
 <script>
@@ -492,43 +481,70 @@ const state = {
   allSpecs: [],
   lastUpdated: null,
   dataSource: 'loading',
-  filters: { publisher: 'all', specType: 'all' },
+  filters: { publisher: 'all', specType: 'all', status: 'all' },
   query: '',
+  sort: 'date-desc',
 };
 
 // ── DOM refs ───────────────────────────────────────────────────────────────
-const $ = id => document.getElementById(id);
-const searchInput   = $('searchInput');
-const clearBtn      = $('clearBtn');
-const resultsEl     = $('results');
-const countEl       = $('resultCount');
-const indicatorEl   = $('dataIndicator');
-const refreshBtn    = $('refreshBtn');
+const $id = id => document.getElementById(id);
+const searchInput = $id('searchInput');
+const clearBtn    = $id('clearBtn');
+const searchHint  = $id('searchHint');
+const resultsEl   = $id('results');
+const countEl     = $id('resultCount');
+const indicatorEl = $id('dataIndicator');
+const refreshBtn  = $id('refreshBtn');
+const sortSelect  = $id('sortSelect');
 
-// ── Init ───────────────────────────────────────────────────────────────────
+// ── URL state ──────────────────────────────────────────────────────────────
+function readURLParams() {
+  const p = new URLSearchParams(window.location.search);
+  state.query             = p.get('q')      || '';
+  state.filters.publisher = p.get('pub')    || 'all';
+  state.filters.specType  = p.get('type')   || 'all';
+  state.filters.status    = p.get('status') || 'all';
+  state.sort              = p.get('sort')   || 'date-desc';
+}
+
+function updateURL() {
+  const p = new URLSearchParams();
+  if (state.query)                         p.set('q',      state.query);
+  if (state.filters.publisher !== 'all')   p.set('pub',    state.filters.publisher);
+  if (state.filters.specType  !== 'all')   p.set('type',   state.filters.specType);
+  if (state.filters.status    !== 'all')   p.set('status', state.filters.status);
+  if (state.sort !== 'date-desc')          p.set('sort',   state.sort);
+  const str = p.toString();
+  window.history.replaceState(null, '', str ? '?' + str : window.location.pathname);
+}
+
+// ── Data loading ───────────────────────────────────────────────────────────
 async function init() {
+  readURLParams();
+  syncUIToState();
   setupEvents();
   try {
     const res = await fetch('./data/specs.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    state.allSpecs = Array.isArray(data) ? data : (data.specs || []);
+    state.allSpecs   = Array.isArray(data) ? data : (data.specs || []);
     state.lastUpdated = data.lastUpdated || null;
-    state.dataSource = 'cached';
+    state.dataSource  = 'cached';
     setIndicator('cached');
     renderResults();
+    // Auto-try live fetch in background after initial render
+    setTimeout(() => tryLiveFetch({ silent: true }), 3000);
   } catch (e) {
     console.error('Load error:', e);
-    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">⚠️</div><p>Impossible de charger les spécifications.<br>Vérifiez la connexion ou <a href="./">rechargez la page</a>.</p></div>`;
+    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">⚠️</div><p>Impossible de charger les spécifications.<br><a href="./">Recharger la page</a></p></div>`;
     setIndicator('error');
     countEl.textContent = '';
   }
 }
 
-// ── Live fetch (CORS) ──────────────────────────────────────────────────────
-async function tryLiveFetch() {
-  refreshBtn.disabled = true;
-  setIndicator('loading');
+// ── Live fetch ─────────────────────────────────────────────────────────────
+async function tryLiveFetch({ silent = false } = {}) {
+  if (!silent) { refreshBtn.disabled = true; setIndicator('loading'); }
 
   const sources = [
     { url: 'https://interop.esante.gouv.fr/ig/fhir/package-registry.json', publisher: 'ANS',        specType: 'FHIR'  },
@@ -547,75 +563,109 @@ async function tryLiveFetch() {
     .flatMap(r => r.value);
 
   if (liveSpecs.length === 0) {
-    setIndicator('cors-blocked');
+    if (!silent) setIndicator('cors-blocked');
     refreshBtn.disabled = false;
     return;
   }
 
-  // Merge: live specs override cached entries with same canonical; keep the rest (CDA, HL7v2, etc.)
   const liveCanonicals = new Set(liveSpecs.map(s => s.canonical).filter(Boolean));
   const cachedOnly = state.allSpecs.filter(s => !liveCanonicals.has(s.canonical));
-  state.allSpecs = [...liveSpecs, ...cachedOnly];
+  state.allSpecs    = [...liveSpecs, ...cachedOnly];
   state.lastUpdated = new Date().toISOString();
-  state.dataSource = 'live';
+  state.dataSource  = 'live';
   setIndicator('live');
   renderResults();
   refreshBtn.disabled = false;
 }
 
 function normalizeRegistry(data, publisher, specType) {
-  const arr = Array.isArray(data)
-    ? data
+  const arr = Array.isArray(data) ? data
     : (data.guides || data.packages || Object.values(data).find(Array.isArray) || []);
-
-  return arr
-    .filter(item => item && (item['package-id'] || item.id))
-    .map(item => ({
-      id:            item['package-id'] || item.id || '',
-      title:         item.title || item.name || '',
-      description:   item.description || item.introduction || '',
-      canonical:     item.canonical || '',
-      publisher,
-      specType,
-      fhirVersion:   item.fhirVersion || item['fhir-version'] || [],
-      latestVersion: item.latest?.version || null,
-      latestDate:    item.latest?.date || null,
-      latestUrl:     item.latest?.path || item.canonical || '',
-      ciBuild:       item['ci-build'] || null,
-      historyUrl:    item.history || ((item.canonical || '') + '/history.html'),
-    }));
+  return arr.filter(item => item && (item['package-id'] || item.id)).map(item => ({
+    id:            item['package-id'] || item.id || '',
+    title:         item.title || item.name || '',
+    description:   item.description || item.introduction || '',
+    canonical:     item.canonical || '',
+    publisher,
+    specType,
+    fhirVersion:   item.fhirVersion || item['fhir-version'] || [],
+    latestVersion: item.latest?.version || null,
+    latestDate:    item.latest?.date || null,
+    latestUrl:     item.latest?.path || item.canonical || '',
+    ciBuild:       item['ci-build'] || null,
+    historyUrl:    item.history || ((item.canonical || '') + '/history.html'),
+    status:        '',
+  }));
 }
 
-// ── Search & Filter ────────────────────────────────────────────────────────
+// ── Filter / Sort logic ────────────────────────────────────────────────────
 function norm(str) {
   return (str || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
 
-function getFiltered() {
-  const tokens = norm(state.query).split(/\s+/).filter(Boolean);
-  const { publisher: pubFilter, specType: typeFilter } = state.filters;
+function matchesSpec(spec, filters, query) {
+  const { publisher: pF, specType: tF, status: sF } = filters;
 
-  return state.allSpecs.filter(spec => {
-    // Publisher filter
-    if (pubFilter !== 'all') {
-      if (pubFilter === 'Autre') {
-        if (['ANS', 'ANS (CI-SIS)', 'HL7 France', 'INCa'].includes(spec.publisher)) return false;
-      } else if (spec.publisher !== pubFilter) return false;
-    }
-    // Type filter
-    if (typeFilter !== 'all') {
-      if (typeFilter === 'Autre') {
-        if (['FHIR', 'HL7v2', 'CDA'].includes(spec.specType)) return false;
-      } else if (spec.specType !== typeFilter) return false;
-    }
-    // Text search
-    if (tokens.length === 0) return true;
-    const haystack = norm([spec.title, spec.description, spec.id, spec.canonical, spec.publisher, spec.specType].join(' '));
-    return tokens.every(t => haystack.includes(t));
+  if (pF !== 'all') {
+    if (pF === 'Autre') {
+      if (['ANS','ANS (CI-SIS)','HL7 France','INCa'].includes(spec.publisher)) return false;
+    } else if (spec.publisher !== pF) return false;
+  }
+  if (tF !== 'all') {
+    if (tF === 'Autre') {
+      if (['FHIR','HL7v2','CDA'].includes(spec.specType)) return false;
+    } else if (spec.specType !== tF) return false;
+  }
+  if (sF !== 'all') {
+    const s = spec.status || '';
+    if (sF === 'draft') { if (s !== 'draft' && s !== 'ci-build') return false; }
+    else if (s !== sF) return false;
+  }
+  if (!query) return true;
+  const tokens = norm(query).split(/\s+/).filter(Boolean);
+  if (!tokens.length) return true;
+  const hay = norm([spec.title, spec.description, spec.id, spec.canonical, spec.publisher, spec.specType].join(' '));
+  return tokens.every(t => hay.includes(t));
+}
+
+function getFiltered() {
+  return state.allSpecs.filter(s => matchesSpec(s, state.filters, state.query));
+}
+
+function sortSpecs(specs) {
+  const s = [...specs];
+  switch (state.sort) {
+    case 'alpha':
+      return s.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'fr'));
+    case 'publisher':
+      return s.sort((a, b) =>
+        (a.publisher + '|' + a.title).localeCompare(b.publisher + '|' + b.title, 'fr'));
+    default: // date-desc
+      return s.sort((a, b) => {
+        if (!a.latestDate && !b.latestDate) return (a.title||'').localeCompare(b.title||'', 'fr');
+        if (!a.latestDate) return 1;
+        if (!b.latestDate) return -1;
+        return b.latestDate.localeCompare(a.latestDate);
+      });
+  }
+}
+
+// ── Filter count badges ────────────────────────────────────────────────────
+function updateFilterCounts() {
+  ['publisher', 'specType', 'status'].forEach(dim => {
+    document.querySelectorAll(`.filter-btn[data-filter="${dim}"]`).forEach(btn => {
+      const val = btn.dataset.value;
+      if (val === 'all') return;
+      const testFilters = { ...state.filters, [dim]: val };
+      const n = state.allSpecs.filter(s => matchesSpec(s, testFilters, state.query)).length;
+      let fc = btn.querySelector('.fc');
+      if (!fc) { fc = document.createElement('span'); fc.className = 'fc'; btn.appendChild(fc); }
+      fc.textContent = n ? `${n}` : '';
+    });
   });
 }
 
-// ── Rendering ─────────────────────────────────────────────────────────────
+// ── Rendering helpers ──────────────────────────────────────────────────────
 function esc(str) {
   return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -624,11 +674,11 @@ function hl(text, q) {
   if (!q || !text) return esc(text || '');
   const tokens = norm(q).split(/\s+/).filter(Boolean);
   if (!tokens.length) return esc(text);
-  const re = new RegExp('(' + tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
+  const re = new RegExp('(' + tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')', 'gi');
   return esc(text).replace(re, '<mark>$1</mark>');
 }
 
-function pubBadge(p) {
+function pubBadgeClass(p) {
   if (p === 'ANS') return 'bp-ans';
   if (p === 'ANS (CI-SIS)') return 'bp-cissis';
   if (p === 'HL7 France') return 'bp-hl7';
@@ -636,55 +686,61 @@ function pubBadge(p) {
   return 'bp-other';
 }
 
-function typeBadge(t) {
+function typeBadgeClass(t) {
   if (t === 'FHIR')  return 'bt-fhir';
   if (t === 'HL7v2') return 'bt-hl7v2';
   if (t === 'CDA')   return 'bt-cda';
   return 'bt-other';
 }
 
-function fmtDate(s) {
+function statusBadge(s) {
   if (!s) return '';
-  try {
-    return new Date(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
-  } catch { return s; }
+  if (s === 'ci-build' || s === 'draft') return `<span class="badge bs-dev" title="${esc(s)}">Dev</span>`;
+  if (s === 'ballot')      return `<span class="badge bs-bal">Ballot</span>`;
+  if (s === 'trial-use')   return `<span class="badge bs-stu">STU</span>`;
+  if (s === 'final-text')  return `<span class="badge bs-fin">Final</span>`;
+  return '';
 }
 
 function fhirVersionLabel(versions) {
   if (!versions || !versions.length) return '';
-  const v = versions[0];
-  if (v === '5.0.0' || v === '5.0.0-ballot') return 'R5';
-  if (v === '4.0.1' || v === '4.0.0' || String(v).startsWith('4.')) return 'R4';
-  if (String(v).startsWith('3.')) return 'STU3';
-  return 'R4';
+  const v = String(versions[0]);
+  if (v.startsWith('5.')) return 'R5';
+  if (v.startsWith('4.')) return 'R4';
+  if (v.startsWith('3.')) return 'STU3';
+  return '';
+}
+
+function fmtDate(s) {
+  if (!s) return '';
+  try { return new Date(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
+  catch { return s; }
 }
 
 function renderCard(spec) {
-  const q = state.query;
-  const mainUrl = spec.latestUrl || spec.canonical;
+  const q  = state.query;
+  const url = spec.latestUrl || spec.canonical;
   const fhirLabel = spec.specType === 'FHIR' ? fhirVersionLabel(spec.fhirVersion) : '';
 
   const versionParts = [
     spec.latestVersion ? `<span class="card-version">v${esc(spec.latestVersion)}</span>` : '',
-    spec.latestDate ? `<span class="card-sep">·</span><span>${fmtDate(spec.latestDate)}</span>` : '',
+    spec.latestDate    ? `<span class="card-sep">·</span><span>${fmtDate(spec.latestDate)}</span>` : '',
   ].filter(Boolean).join(' ');
 
   const links = [];
-  if (mainUrl) links.push(`<a class="card-link" href="${esc(mainUrl)}" target="_blank" rel="noopener">Voir la spec →</a>`);
-  if (spec.historyUrl && spec.historyUrl !== mainUrl && spec.specType !== 'CDA') {
+  if (url) links.push(`<a class="card-link" href="${esc(url)}" target="_blank" rel="noopener">Voir la spec →</a>`);
+  if (spec.historyUrl && spec.historyUrl !== url && spec.specType !== 'CDA')
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.historyUrl)}" target="_blank" rel="noopener">Historique</a>`);
-  }
-  if (spec.ciBuild) {
+  if (spec.ciBuild)
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.ciBuild)}" target="_blank" rel="noopener">CI build</a>`);
-  }
 
   return `<article class="card">
   <div class="card-badges">
-    <span class="badge ${pubBadge(spec.publisher)}">${esc(spec.publisher)}</span>
-    <span class="badge ${typeBadge(spec.specType)}">${esc(spec.specType)}</span>${fhirLabel ? `
-    <span class="badge bv-fhir">${esc(fhirLabel)}</span>` : ''}
+    <span class="badge ${pubBadgeClass(spec.publisher)}">${esc(spec.publisher)}</span>
+    <span class="badge ${typeBadgeClass(spec.specType)}">${esc(spec.specType)}</span>${fhirLabel ? `
+    <span class="badge bv-fhir">${esc(fhirLabel)}</span>` : ''}${statusBadge(spec.status)}
   </div>
-  <div class="card-title">${mainUrl ? `<a href="${esc(mainUrl)}" target="_blank" rel="noopener">${hl(spec.title, q)}</a>` : hl(spec.title, q)}</div>${spec.id ? `
+  <div class="card-title">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${hl(spec.title, q)}</a>` : hl(spec.title, q)}</div>${spec.id ? `
   <div class="card-id" title="${esc(spec.id)}">${hl(spec.id, q)}</div>` : ''}${spec.description ? `
   <div class="card-desc">${hl(spec.description, q)}</div>` : ''}${versionParts ? `
   <div class="card-meta">${versionParts}</div>` : ''}${links.length ? `
@@ -694,44 +750,49 @@ function renderCard(spec) {
 
 function renderResults() {
   const filtered = getFiltered();
-  const total = state.allSpecs.length;
-  const hasFilter = state.query || state.filters.publisher !== 'all' || state.filters.specType !== 'all';
+  const sorted   = sortSpecs(filtered);
+  const total    = state.allSpecs.length;
+  const hasFilter = state.query || state.filters.publisher !== 'all'
+                  || state.filters.specType !== 'all' || state.filters.status !== 'all';
 
   countEl.textContent = hasFilter
-    ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} sur ${total}`
+    ? `${sorted.length} résultat${sorted.length !== 1 ? 's' : ''} sur ${total}`
     : `${total} spécification${total !== 1 ? 's' : ''}`;
 
-  if (filtered.length === 0) {
-    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">🔍</div><p>Aucune spécification ne correspond à cette recherche.</p></div>`;
-    return;
+  if (sorted.length === 0) {
+    resultsEl.innerHTML = `<div class="state-msg"><div class="icon">🔍</div><p>Aucune spécification ne correspond.</p></div>`;
+  } else {
+    resultsEl.innerHTML = sorted.map(renderCard).join('');
   }
-  resultsEl.innerHTML = filtered.map(renderCard).join('');
+
+  updateFilterCounts();
+  updateURL();
 }
 
 function setIndicator(status) {
   indicatorEl.className = 'data-pill';
   switch (status) {
-    case 'loading':
-      indicatorEl.className += ' loading';
-      indicatorEl.textContent = '⟳ Chargement…';
-      break;
-    case 'cached':
-      indicatorEl.className += ' cached';
-      indicatorEl.textContent = '📦 Cache' + (state.lastUpdated ? ' · ' + fmtDate(state.lastUpdated) : '');
-      break;
-    case 'live':
-      indicatorEl.className += ' live';
-      indicatorEl.textContent = '✓ Données en direct';
-      break;
-    case 'cors-blocked':
-      indicatorEl.className += ' cached';
-      indicatorEl.textContent = '⚠ Accès direct indisponible (CORS)';
-      break;
-    case 'error':
-      indicatorEl.className += ' error';
-      indicatorEl.textContent = '✗ Erreur de chargement';
-      break;
+    case 'loading':      indicatorEl.className += ' loading'; indicatorEl.textContent = '⟳ Chargement…'; break;
+    case 'cached':       indicatorEl.className += ' cached';  indicatorEl.textContent = '📦 Cache' + (state.lastUpdated ? ' · ' + fmtDate(state.lastUpdated) : ''); break;
+    case 'live':         indicatorEl.className += ' live';    indicatorEl.textContent = '✓ Données en direct'; break;
+    case 'cors-blocked': indicatorEl.className += ' cached';  indicatorEl.textContent = '⚠ Direct non disponible (CORS)'; break;
+    case 'error':        indicatorEl.className += ' error';   indicatorEl.textContent = '✗ Erreur'; break;
   }
+}
+
+// ── Sync UI to state (used after reading URL params) ──────────────────────
+function syncUIToState() {
+  searchInput.value = state.query;
+  clearBtn.classList.toggle('visible', state.query.length > 0);
+  searchHint.style.display = state.query.length > 0 ? 'none' : '';
+
+  sortSelect.value = state.sort;
+
+  ['publisher', 'specType', 'status'].forEach(dim => {
+    document.querySelectorAll(`.filter-btn[data-filter="${dim}"]`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === state.filters[dim]);
+    });
+  });
 }
 
 // ── Events ─────────────────────────────────────────────────────────────────
@@ -740,7 +801,9 @@ function setupEvents() {
 
   searchInput.addEventListener('input', () => {
     state.query = searchInput.value;
-    clearBtn.classList.toggle('visible', state.query.length > 0);
+    const hasText = state.query.length > 0;
+    clearBtn.classList.toggle('visible', hasText);
+    searchHint.style.display = hasText ? 'none' : '';
     clearTimeout(debounce);
     debounce = setTimeout(renderResults, 150);
   });
@@ -749,8 +812,23 @@ function setupEvents() {
     searchInput.value = '';
     state.query = '';
     clearBtn.classList.remove('visible');
+    searchHint.style.display = '';
     renderResults();
     searchInput.focus();
+  });
+
+  // Keyboard shortcut: '/' focuses search (unless already in an input)
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== searchInput
+        && document.activeElement.tagName !== 'INPUT'
+        && document.activeElement.tagName !== 'SELECT') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+      searchInput.blur();
+    }
   });
 
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -764,7 +842,12 @@ function setupEvents() {
     });
   });
 
-  refreshBtn.addEventListener('click', tryLiveFetch);
+  sortSelect.addEventListener('change', () => {
+    state.sort = sortSelect.value;
+    renderResults();
+  });
+
+  refreshBtn.addEventListener('click', () => tryLiveFetch({ silent: false }));
 }
 
 // ── Go ─────────────────────────────────────────────────────────────────────

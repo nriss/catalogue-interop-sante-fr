@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Regenerates data/specs.json by fetching all French interop spec registries.
-# Merges live data with existing descriptions (preserved from previous run).
+# Pass 1 : normalise each source registry (ANS, HL7 France, ig-registry, CI-SIS static)
+# Pass 2 : enriches each spec with description, fhirVersion, status from package-list.json
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -12,14 +13,13 @@ trap 'rm -rf "$TMP"' EXIT
 
 log() { echo "[fetch-specs] $*" >&2; }
 
-# Safe fetch to a file: writes "null" on error
 fetch_to() {
   local url="$1" dest="$2"
   log "Fetching $url"
   curl -sf --max-time 30 --retry 2 "$url" > "$dest" 2>/dev/null || echo "null" > "$dest"
 }
 
-# ── Fetch all sources ─────────────────────────────────────────────────────────
+# ── Pass 1 : fetch source registries ─────────────────────────────────────────
 fetch_to "https://interop.esante.gouv.fr/ig/fhir/package-registry.json"  "$TMP/ans_fhir.json"
 fetch_to "https://interop.esante.gouv.fr/ig/package-registry.json"       "$TMP/ans_other.json"
 fetch_to "https://interop.esante.gouv.fr/ig/hl7v2/package-registry.json" "$TMP/ans_hl7v2.json"
@@ -27,26 +27,33 @@ fetch_to "https://interop.esante.gouv.fr/ig/cda/package-registry.json"   "$TMP/a
 fetch_to "https://hl7.fr/ig/fhir/package-registry.json"                  "$TMP/hl7_fr.json"
 fetch_to "https://raw.githubusercontent.com/FHIR/ig-registry/master/fhir-ig-list.json" "$TMP/hl7_global.json"
 
-# ── Static CI-SIS CDA volets (PDF-only, no machine-readable catalog) ──────────
+# ── Static CI-SIS CDA volets (PDF only, no machine-readable catalog) ──────────
 cat > "$TMP/cissis.json" << 'ENDJSON'
 [
-  {"id":"cissis.cda.fr.structuration-minimale","title":"Structuration minimale des documents de santé (CI-SIS)","latestVersion":"1.16.8"},
-  {"id":"cissis.cda.fr.ips-fr","title":"Synthèse médicale — IPS-FR (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.dlu","title":"Dossier de Liaison d'Urgence (DLU) — CI-SIS","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.cr-bio","title":"Compte-rendu de biologie médicale (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cr-img","title":"Compte-rendu d'imagerie médicale (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.ep-med","title":"ePrescription de médicaments (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.ep-dm","title":"ePrescription de dispositifs médicaux (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.vac","title":"Vaccination (CI-SIS)","latestVersion":"2023.01"},
-  {"id":"cissis.cda.fr.tlm","title":"Télémédecine (CI-SIS)","latestVersion":"2026.01"},
-  {"id":"cissis.cda.fr.frcp","title":"Fiche RCP Cancer (CI-SIS)","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.obp","title":"Obstétrique et périnatalité (CI-SIS)","latestVersion":"2024.01"},
-  {"id":"cissis.cda.fr.cse","title":"Certificats de santé de l'enfant (CI-SIS)","latestVersion":"2025.01"},
-  {"id":"cissis.cda.fr.sdm-mr","title":"Dataset maladies rares (CI-SIS)","latestVersion":"2025.01"}
+  {"id":"cissis.cda.fr.structuration-minimale","title":"Structuration minimale des documents de santé","latestVersion":"1.16.8"},
+  {"id":"cissis.cda.fr.ips-fr","title":"Synthèse médicale — Patient Summary (IPS-FR)","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.dlu","title":"Dossier de Liaison d'Urgence (DLU)","latestVersion":"2025.01"},
+  {"id":"cissis.cda.fr.cr-bio","title":"Compte-rendu de biologie médicale","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.cr-img","title":"Compte-rendu d'imagerie médicale","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.ep-med","title":"ePrescription de médicaments","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.ep-dm","title":"ePrescription de dispositifs médicaux","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.vac","title":"Vaccination","latestVersion":"2023.01"},
+  {"id":"cissis.cda.fr.tlm","title":"Télémédecine","latestVersion":"2026.01"},
+  {"id":"cissis.cda.fr.frcp","title":"Fiche de Réunion de Concertation Pluridisciplinaire (RCP) en oncologie","latestVersion":"2025.01"},
+  {"id":"cissis.cda.fr.obp","title":"Obstétrique et périnatalité","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.cse","title":"Certificats de santé de l'enfant (CS8, CS9, CS24)","latestVersion":"2025.01"},
+  {"id":"cissis.cda.fr.sdm-mr","title":"Dataset maladies rares","latestVersion":"2025.01"},
+  {"id":"cissis.cda.fr.lls","title":"Lettre de liaison à la sortie d'hospitalisation","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.cr-ope","title":"Compte-rendu opératoire","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.cr-consult","title":"Compte-rendu de consultation","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.phrm","title":"Plan personnalisé de soins (PPS) — Médecine du travail","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.ldm","title":"Lettre de demande / Lettre de référence","latestVersion":"2024.01"},
+  {"id":"cissis.cda.fr.vsm","title":"Volet de synthèse médicale (VSM)","latestVersion":"2023.01"},
+  {"id":"cissis.cda.fr.tra","title":"Transfert d'un patient (TRA)","latestVersion":"2024.01"}
 ]
 ENDJSON
 
-# ── Extract existing descriptions to preserve them ────────────────────────────
+# ── Preserve descriptions from previous run ───────────────────────────────────
 if [[ -f "$OUT" ]]; then
   jq '[(.specs // [])[] | select(.description != null and .description != "") | {(.id): .description}] | add // {}' \
     "$OUT" > "$TMP/descs.json" 2>/dev/null || echo "{}" > "$TMP/descs.json"
@@ -54,7 +61,7 @@ else
   echo "{}" > "$TMP/descs.json"
 fi
 
-# ── Normalize + merge with jq (using file inputs, no arg size limit) ──────────
+# ── Normalise + merge (Pass 1) ────────────────────────────────────────────────
 jq -n \
   --slurpfile ans_fhir   "$TMP/ans_fhir.json" \
   --slurpfile ans_other  "$TMP/ans_other.json" \
@@ -66,7 +73,6 @@ jq -n \
   --slurpfile descs      "$TMP/descs.json" \
   --arg ts               "$TIMESTAMP" \
 '
-# --slurpfile wraps the value in an array; unwrap with .[0]
 def src(f): f[0];
 
 def to_arr(x):
@@ -90,7 +96,8 @@ def normalize_registry(data; publisher; spec_type):
       latestDate:    (.latest.date // null),
       latestUrl:     (.latest.path // .canonical // ""),
       ciBuild:       (.["ci-build"] // null),
-      historyUrl:    (.history // ((.canonical // "") + "/history.html"))
+      historyUrl:    (.history // ((.canonical // "") + "/history.html")),
+      status:        ""
     });
 
 def normalize_hl7_global(data):
@@ -108,7 +115,8 @@ def normalize_hl7_global(data):
       latestDate:    null,
       latestUrl:     ((.editions // [{}])[-1].url // .canonical // ""),
       ciBuild:       (.["ci-build"] // null),
-      historyUrl:    (.history // null)
+      historyUrl:    (.history // null),
+      status:        ""
     });
 
 def normalize_cissis(data):
@@ -125,10 +133,10 @@ def normalize_cissis(data):
       latestDate:    null,
       latestUrl:     "https://esante.gouv.fr/offres-services/ci-sis/espace-publication",
       ciBuild:       null,
-      historyUrl:    null
+      historyUrl:    null,
+      status:        ""
     });
 
-# Merge all sources
 (
   normalize_registry(src($ans_fhir);   "ANS";        "FHIR")  +
   normalize_registry(src($ans_other);  "ANS";        "Autre") +
@@ -138,7 +146,6 @@ def normalize_cissis(data):
   normalize_hl7_global(src($hl7_global))                      +
   normalize_cissis(src($cissis))
 )
-# Restore descriptions from previous run
 | map(. as $s |
     .description = (
       if (.description // "" | length) > 0 then .description
@@ -146,8 +153,6 @@ def normalize_cissis(data):
       end
     )
   )
-# Deduplicate: CI-SIS entries all share the same canonical URL, so dedup by id for them;
-# for all others, dedup by canonical (keeps first occurrence = higher-priority source wins)
 | group_by(
     if .canonical == "https://esante.gouv.fr/offres-services/ci-sis/espace-publication"
     then .id
@@ -156,12 +161,61 @@ def normalize_cissis(data):
   )
 | map(.[0])
 | sort_by([.publisher, .title])
-| {
-    lastUpdated: $ts,
-    count: length,
-    specs: .
-  }
+| {lastUpdated: $ts, count: length, specs: .}
 ' > "$OUT"
 
+# ── Pass 2 : enrich with package-list.json ───────────────────────────────────
+log "Enriching with package-list.json (description, fhirVersion, status)..."
+echo "{}" > "$TMP/enrichment.json"
+
+while IFS=$'\t' read -r id canonical; do
+  [[ -z "$canonical" || "$canonical" == "null" ]] && continue
+  pkg_url="${canonical}/package-list.json"
+  log "  $id"
+  raw=$(curl -sf --max-time 15 "$pkg_url" 2>/dev/null || echo "null")
+  enrich=$(printf '%s' "$raw" | jq -c '
+    if . == null or type != "object" then {}
+    else
+      (
+        (.list // []) |
+        (map(select(.current == true and .version != "current")) | first) //
+        (map(select(.version != "current" and (.status // "" | . != "ci-build"))) | last) //
+        {}
+      ) as $cur |
+      {
+        description: (.introduction // ""),
+        fhirVersion: ([($cur.fhirversion // "")] | map(select(length > 0))),
+        status:      ($cur.status // "")
+      }
+    end
+  ' 2>/dev/null || echo '{}')
+  jq --arg id "$id" --argjson e "$enrich" '. + {($id): $e}' \
+    "$TMP/enrichment.json" > "$TMP/enrich_new.json"
+  mv "$TMP/enrich_new.json" "$TMP/enrichment.json"
+done < <(jq -r '
+  .specs[] |
+  select(
+    (.canonical // "" | startswith("http")) and
+    (.canonical // "" | contains("offres-services") | not)
+  ) |
+  "\(.id)\t\(.canonical)"
+' "$OUT")
+
+jq --slurpfile enrich "$TMP/enrichment.json" '
+  . + {specs: (.specs | map(
+    . as $s |
+    ($enrich[0][$s.id] // {}) as $e |
+    $s
+    | .description = (if (.description // "" | length) > 0 then .description else ($e.description // "") end)
+    | .fhirVersion = (
+        if (.fhirVersion | length) > 0 then .fhirVersion
+        elif (($e.fhirVersion // []) | length) > 0 then $e.fhirVersion
+        else []
+        end
+      )
+    | .status = (if (.status // "" | length) > 0 then .status else ($e.status // "") end)
+  ))}
+' "$OUT" > "$TMP/enriched.json" && mv "$TMP/enriched.json" "$OUT"
+
 COUNT=$(jq '.count' "$OUT")
-log "Done. $COUNT specs written to $OUT"
+log "Done. $COUNT specs written to $OUT (with descriptions + fhirVersion + status)"

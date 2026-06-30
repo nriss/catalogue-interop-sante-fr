@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Interop FR</ShortName>
+  <Description>Recherche dans les spécifications d'interopérabilité françaises (ANS, HL7 France, CI-SIS)</Description>
+  <Url type="text/html" template="https://nriss.github.io/catalogue-interop-sante-fr/?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" rel="suggestions"
+       template="https://nriss.github.io/catalogue-interop-sante-fr/suggestions.json?q={searchTerms}"/>
+  <Image height="16" width="16" type="image/x-icon">https://nriss.github.io/catalogue-interop-sante-fr/favicon.ico</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Language>fr-FR</Language>
+</OpenSearchDescription>
