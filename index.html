@@ -419,8 +419,8 @@
         <button class="filter-btn active" data-filter="publisher" data-value="all">Tous</button>
         <button class="filter-btn" data-filter="publisher" data-value="ANS">ANS</button>
         <button class="filter-btn" data-filter="publisher" data-value="HL7 France">HL7 France</button>
-        <button class="filter-btn" data-filter="publisher" data-value="INCa">INCa</button>
         <button class="filter-btn" data-filter="publisher" data-value="ANS (CI-SIS)">CI-SIS</button>
+        <button class="filter-btn" data-filter="publisher" data-value="Autre">Autres</button>
       </div>
       <div class="filter-group">
         <span class="filter-label">Type</span>
@@ -608,7 +608,7 @@ function matchesSpec(spec, filters, query) {
 
   if (pF !== 'all') {
     if (pF === 'Autre') {
-      if (['ANS','ANS (CI-SIS)','HL7 France','INCa'].includes(spec.publisher)) return false;
+      if (['ANS','ANS (CI-SIS)','HL7 France'].includes(spec.publisher)) return false;
     } else if (spec.publisher !== pF) return false;
   }
   if (tF !== 'all') {
@@ -709,7 +709,7 @@ function fhirVersionLabel(versions) {
   const v = String(versions[0]);
   if (v.startsWith('5.')) return 'R5';
   if (v.startsWith('4.')) return 'R4';
-  if (v.startsWith('3.')) return 'STU3';
+  if (v.startsWith('3.')) return 'R3';
   return '';
 }
 
@@ -731,7 +731,7 @@ function renderCard(spec) {
 
   const links = [];
   if (url) links.push(`<a class="card-link" href="${esc(url)}" target="_blank" rel="noopener">Voir la spec →</a>`);
-  if (spec.historyUrl && spec.historyUrl !== url && spec.specType !== 'CDA')
+  if (spec.historyUrl && spec.historyUrl !== url && !spec.historyUrl.includes('offres-services'))
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.historyUrl)}" target="_blank" rel="noopener">Historique</a>`);
   if (spec.ciBuild)
     links.push(`<a class="card-link card-link-muted" href="${esc(spec.ciBuild)}" target="_blank" rel="noopener">CI build</a>`);

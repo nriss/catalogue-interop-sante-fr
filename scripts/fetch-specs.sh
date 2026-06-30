@@ -69,25 +69,33 @@ cat > "$TMP/cissis.json" << 'ENDJSON'
 ]
 ENDJSON
 
-# ── Preserve descriptions from previous run ───────────────────────────────────
+# ── Preserve description/status/fhirVersion from previous run ────────────────
 if [[ -f "$OUT" ]]; then
   jq '[(.specs // [])[] | select(.description != null and .description != "") | {(.id): .description}] | add // {}' \
     "$OUT" > "$TMP/descs.json" 2>/dev/null || echo "{}" > "$TMP/descs.json"
+  jq '[(.specs // [])[] | select(.status != null and .status != "") | {(.id): .status}] | add // {}' \
+    "$OUT" > "$TMP/prev_status.json" 2>/dev/null || echo "{}" > "$TMP/prev_status.json"
+  jq '[(.specs // [])[] | select((.fhirVersion // []) | length > 0) | {(.id): .fhirVersion}] | add // {}' \
+    "$OUT" > "$TMP/prev_fhir.json" 2>/dev/null || echo "{}" > "$TMP/prev_fhir.json"
 else
   echo "{}" > "$TMP/descs.json"
+  echo "{}" > "$TMP/prev_status.json"
+  echo "{}" > "$TMP/prev_fhir.json"
 fi
 
 # ── Normalise + merge (Pass 1) ────────────────────────────────────────────────
 jq -n \
-  --slurpfile ans_fhir   "$TMP/ans_fhir.json" \
-  --slurpfile ans_other  "$TMP/ans_other.json" \
-  --slurpfile ans_hl7v2  "$TMP/ans_hl7v2.json" \
-  --slurpfile ans_cda    "$TMP/ans_cda.json" \
-  --slurpfile hl7_fr     "$TMP/hl7_fr.json" \
-  --slurpfile hl7_global "$TMP/hl7_global.json" \
-  --slurpfile cissis     "$TMP/cissis.json" \
-  --slurpfile descs      "$TMP/descs.json" \
-  --arg ts               "$TIMESTAMP" \
+  --slurpfile ans_fhir     "$TMP/ans_fhir.json" \
+  --slurpfile ans_other    "$TMP/ans_other.json" \
+  --slurpfile ans_hl7v2    "$TMP/ans_hl7v2.json" \
+  --slurpfile ans_cda      "$TMP/ans_cda.json" \
+  --slurpfile hl7_fr       "$TMP/hl7_fr.json" \
+  --slurpfile hl7_global   "$TMP/hl7_global.json" \
+  --slurpfile cissis       "$TMP/cissis.json" \
+  --slurpfile descs        "$TMP/descs.json" \
+  --slurpfile prev_status  "$TMP/prev_status.json" \
+  --slurpfile prev_fhir    "$TMP/prev_fhir.json" \
+  --arg ts                 "$TIMESTAMP" \
 '
 def src(f): f[0];
 
@@ -124,7 +132,7 @@ def normalize_hl7_global(data):
       title:         (.name // .["npm-name"] // ""),
       description:   (.description // ""),
       canonical:     (.canonical // ""),
-      publisher:     (.authority // "Autre"),
+      publisher:     (if (.authority // "" | test("^ANS")) then "ANS" else (.authority // "Autre") end),
       specType:      "FHIR",
       fhirVersion:   ((.editions // [{}])[0]["fhir-version"] // []),
       latestVersion: ((.editions // [{}])[-1]["ig-version"] // null),
@@ -168,6 +176,17 @@ def normalize_cissis(data):
       else (src($descs)[.id] // "")
       end
     )
+    | .status = (
+        if (.status // "" | length) > 0 then .status
+        else (src($prev_status)[.id] // "")
+        end
+      )
+    | .fhirVersion = (
+        if (.fhirVersion | length) > 0 then .fhirVersion
+        elif ((src($prev_fhir)[.id] // []) | length) > 0 then src($prev_fhir)[.id]
+        else []
+        end
+      )
   )
 | group_by(
     if .canonical == "https://esante.gouv.fr/offres-services/ci-sis/espace-publication"
