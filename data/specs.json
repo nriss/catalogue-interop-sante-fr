@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T10:03:28Z",
+  "lastUpdated": "2026-07-02T09:26:22Z",
   "count": 67,
   "specs": [
     {
@@ -284,9 +284,9 @@
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "2.3.0",
-      "latestDate": "2026-03-16",
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.3.0",
+      "latestVersion": "2.4.0-ballot",
+      "latestDate": "2026-07-01",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.4.0-ballot",
       "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-transfert-donnees-dui/ig/main/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/history.html",
       "status": "trial-implementation"
