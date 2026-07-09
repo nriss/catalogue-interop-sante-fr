@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-07-08T08:39:53Z",
-  "count": 43,
+  "lastUpdated": "2026-07-09T09:57:17Z",
+  "count": 67,
   "specs": [
     {
       "id": "ans.document.fr.core",
@@ -20,55 +20,463 @@
       "status": "Draft"
     },
     {
-      "id": "ans.fr.documentation",
-      "title": "Documentation des guides d'implémentation de l'ANS",
-      "description": "Documentation des guides d'implémentation de l'ANS",
-      "canonical": "https://interop.esante.gouv.fr/ig/documentation",
+      "id": "ans.fhir.fr.mss",
+      "title": "API Messagerie Sécurisée de Santé (MSSanté)",
+      "description": "Cet Implementation Guide décrit l'API FHIR pour la messagerie sécurisée de santé (MSSanté).",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/mss",
       "publisher": "ANS",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
       ],
+      "latestVersion": "0.1.0-snapshot",
+      "latestDate": "2026-06-19",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/0.1.0-snapshot",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-api-messagerie-securisee-sante/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/history.html",
+      "status": "Snapshot"
+    },
+    {
+      "id": "ans.fhir.fr.cds",
+      "title": "Cercle De Soins",
+      "description": "Le cercle de soins permet d’identifier l’ensemble des intervenants (personnes, professionnels et structures) participant à la prise en charge et aux actions de coordination du parcours de santé de la personne. Le cercle de soins d’une personne peut être échangé pour répondre aux besoins des domaines sanitaire, médico-administratif, médico-social et social.",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/cds",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "2.0.1",
+      "latestDate": "2025-11-17",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cds/2.0.1",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-mesures-de-sante/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/cds/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fr.doctrine",
+      "title": "Doctrine et gouvernance du cadre d'interopérabilité des systèmes d'informations en santé (CI-SIS).",
+      "description": "Doctrine et gouvernance du cadre d'interopérabilité des systèmes d'informations en santé (CI-SIS).",
+      "canonical": "https://interop.esante.gouv.fr/ig/doctrine",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0",
+      "latestDate": "2025-06-30",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/doctrine/0.1.0",
+      "ciBuild": "https://ansforge.github.io/IG-doctrine-ci-sis/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/doctrine/history.html",
+      "status": "Publications"
+    },
+    {
+      "id": "ans.fr.documentation",
+      "title": "Documentation des guides d'implémentation de l'ANS",
+      "description": "Documentation des guides d'implémentation de l'ANS",
+      "canonical": "https://interop.esante.gouv.fr/ig/documentation",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
       "latestVersion": "0.1.11",
-      "latestDate": null,
+      "latestDate": "2026-06-18",
       "latestUrl": "https://interop.esante.gouv.fr/ig/documentation/0.1.11",
       "ciBuild": "https://ansforge.github.io/IG-documentation/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/documentation/history.html",
       "status": "release"
     },
     {
-      "id": "ans.fhir.fr.tddui",
-      "title": "Médicosocial - Transfert de données DUI",
-      "description": "Clinical Documents",
-      "canonical": "https://interop.esante.gouv.fr/ig/fhir/tddui",
+      "id": "ans.fhir.fr.annuaire",
+      "title": "Guide d'implémentation FHIR - Annuaire de santé",
+      "description": "Guide d'implémentation FHIR - Annuaire de santé",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/annuaire",
       "publisher": "ANS",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "2.2.0-ballot",
-      "latestDate": null,
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.2.0-ballot",
-      "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-transfert-donnees-dui/ig/main",
-      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/history.html",
-      "status": "trial-implementation"
+      "latestVersion": "1.2.0-snapshot-2",
+      "latestDate": "2026-06-23",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/1.2.0-snapshot-2",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-annuaire/ig/main",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/history.html",
+      "status": "final-text"
     },
     {
-      "id": "ans.fhir.fr.pdsm",
-      "title": "PDSm",
-      "description": "Partage de Documents de Santé en mobilité (PDSm)",
-      "canonical": "https://interop.esante.gouv.fr/ig/fhir/pdsm",
+      "id": "ans.fhir.fr.gap",
+      "title": "Guide d'implémentation FHIR - Gestion d'Agendas Partagés",
+      "description": "Guide d'implémentation FHIR - Gestion d'Agendas Partagés",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/gap",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "3.0.0",
+      "latestDate": "2024-04-29",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/gap/3.0.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-gestion-agendas-partages/ig/main",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/gap/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fhir.fr.mesures",
+      "title": "Guide d'implémentation FHIR - Mesures de santé",
+      "description": "Guide d'implémentation FHIR - Mesures de santé",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/mesures",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "3.2.0",
+      "latestDate": "2026-02-18",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mesures/3.2.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-mesures-de-sante/ig/main",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/mesures/history.html",
+      "status": "final-text"
+    },
+    {
+      "id": "ans.fhir.fr.cdl",
+      "title": "Guide d'implémentation cahier de liaison",
+      "description": "Guide d'implémentation cahier de liaison",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/cdl",
       "publisher": "ANS",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
       ],
       "latestVersion": "3.0.0",
-      "latestDate": null,
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/3.0.0",
-      "ciBuild": "https://build.interop.esante.gouv.fr/ig/fhir/pdsm",
+      "latestDate": "2025-02-06",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/3.0.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-cdl-de-sante/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fhir.fr.eprescription",
+      "title": "Guide d'implémentation de la ePrescription",
+      "description": "Ce guide définit les spécifications FHIR pour les échanges liés à la prescription électronique de médicaments en France, de la HAS et des standards européens (IHE MPD, eHN).",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/eprescription",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.1.0-ballot",
+      "latestDate": "2026-05-11",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/eprescription/1.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-ePrescription/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/eprescription/history.html",
+      "status": "STU 1"
+    },
+    {
+      "id": "ans.fhir.fr.telesurveillance",
+      "title": "Guide d'implémentation de la télésurveillance",
+      "description": "Guide d'implémentation de la télésurveillance permettant la transmission de résultats de questionnaire",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/telesurveillance",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0",
+      "latestDate": "2024-10-10",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/telesurveillance/0.1.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-telesurveillance-de-sante/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/telesurveillance/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fr.nos",
+      "title": "Guide d'implémentation des NOS",
+      "description": "Guide d'implémentation FHIR - NOS",
+      "canonical": "https://interop.esante.gouv.fr/ig/nos",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.5.0",
+      "latestDate": "2025-02-11",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/nos/1.5.0",
+      "ciBuild": "https://ansforge.github.io/IG-NOS/ig/main/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/nos/history.html",
+      "status": "release"
+    },
+    {
+      "id": "ans.cda.fr.tddui",
+      "title": "Guide d'implémentation pour le contenu CDA du transfert donnees dui",
+      "description": "Définition des spécifications de l'API FHIR et du contenu CDA pour transporter les données des logiciels DUI des Services de soins infirmiers à domicile (SSIAD) destinés aux personnages âgées et aux personnes handicapées, à un SI tiers.",
+      "canonical": "https://interop.esante.gouv.fr/ig/cda/tddui",
+      "publisher": "ANS",
+      "specType": "CDA",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.0.1",
+      "latestDate": "2025-10-17",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/cda/tddui/1.0.0",
+      "ciBuild": "https://ansforge.github.io/IG-contenu-cda-medicosocial-transfert-donnees-dui/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/cda/tddui/history.html",
+      "status": "trial-implementation"
+    },
+    {
+      "id": "ans.fhir.fr.eclaire",
+      "title": "Implementation Guide FHIR pour le projet ECLAIRE, base de données qui recense les essais cliniques en France",
+      "description": "Implementation Guide FHIR pour le projet ECLAIRE, base de données qui recense les essais cliniques en France",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/eclaire",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.3.0",
+      "latestDate": "2024-02-26",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/eclaire/0.3.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-essais-cliniques/ig/main/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/eclaire/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fr.mos",
+      "title": "Modèle des Objets de Santé (MOS)",
+      "description": "Le Modèle des Objets de Santé (MOS) est le référentiel socle de l'interopérabilité en santé en France. Il décrit de manière homogène et neutre les concepts métiers partagés entre les systèmes d'information de santé : professionnels, structures, personnes prises en charge, dispositifs médicaux, etc.",
+      "canonical": "https://interop.esante.gouv.fr/ig/mos",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0-ballot",
+      "latestDate": "2026-04-20",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/mos/0.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/IG-modele-objets-sante/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/mos/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fhir.fr.sdo",
+      "title": "Médicosocial - Suivi Décisions Orientation",
+      "description": "Spécification des échanges d’information entre le Système d’Information de Suivi des Orientations (SI-SdO) et le Système d’Information des Etablissements et Services Médico-Sociaux (SI-ESMS) suite à une notification de décision d’orientation prise par la Commission des Droits et de l’Autonomie des Personnes Handicapées (CDAPH).",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/sdo",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "4.0.7",
+      "latestDate": "2026-06-29",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/sdo/4.0.7",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-suivi-decisions-orientation/ig/main",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/sdo/history.html",
+      "status": "trial-implementation"
+    },
+    {
+      "id": "ans.fhir.fr.tddui",
+      "title": "Médicosocial - Transfert de données DUI",
+      "description": "Clinical Documents",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/tddui",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "2.4.0-ballot",
+      "latestDate": "2026-07-01",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.4.0-ballot",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-transfert-donnees-dui/ig/main/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/history.html",
+      "status": "trial-implementation"
+    },
+    {
+      "id": "ans.fhir.fr.pdsm",
+      "title": "Partage de Documents de Santé en mobilité (PDSm)",
+      "description": "Partage de Documents de Santé en mobilité (PDSm)",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/pdsm",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "3.1.1",
+      "latestDate": "2026-01-15",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/3.1.1",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-partage-de-documents-de-sante/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/history.html",
       "status": "trial-use"
+    },
+    {
+      "id": "ans.fhir.fr.ruim",
+      "title": "Référentiel Unique de l'Interopérabilité du Médicament",
+      "description": "Le Référentiel Unique de l'Interopérabilité du Médicament (RUIM) est un guide d'implémentation FHIR définissant les profils et ressources nécessaires à la standardisation des données médicament en France. Il spécifie la structure des CodeSystems de spécialités pharmaceutiques identifiées par leur code CIP-13, en alignement avec les travaux de l'ANS, de l'ANSM et des standards européens.",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/ruim",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.0.1",
+      "latestDate": "2026-03-30",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/ruim/0.0.1",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-referentiel-medicament/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/ruim/history.html",
+      "status": "STU 1"
+    },
+    {
+      "id": "ans.fhir.fr.ror",
+      "title": "Répertoire national de l’Offre et des Ressources en santé et accompagnement médico-social",
+      "description": "Spécifications de l'API FHIR et ressources de conformité basées sur le modèle d'exposition 3.0 du ROR",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/ror",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.7.0",
+      "latestDate": "2026-04-29",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/ror/0.7.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-repertoire-offre-ressources-sante/ig/main",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/ror/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fhir.fr.sas",
+      "title": "Service d'Accès aux Soins",
+      "description": "Le guide d'implémentation SAS décrit les spécifications à mettre en oeuvre par les éditeurs réalisant des travaux d'interopérabilité avec la plateforme numérique du SAS",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/sas",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.2.0",
+      "latestDate": "2025-11-24",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/sas/1.2.0",
+      "ciBuild": "https://ansforge.github.io/IG-fhir/service-acces-aux-soins/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/sas/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fr.securisation-transport",
+      "title": "Sécurisation de la couche transport API REST",
+      "description": "Volet transport du CI-SIS qui décrit les modalités de sécurisation des APIs REST et des APIs ProSantéConnectées",
+      "canonical": "https://interop.esante.gouv.fr/ig/securisation-transport",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.2.0",
+      "latestDate": "2023-12-05",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/securisation-transport/1.2.0",
+      "ciBuild": "https://ansforge.github.io/IG-securisation-transport-api-rest/ig/main/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/securisation-transport/history.html",
+      "status": "trial-use"
+    },
+    {
+      "id": "ans.fhir.fr.tdmi",
+      "title": "Volet Traçabilité des Dispositifs Médicaux Implantables",
+      "description": "Ce guide d’implémentation (IG) décrit les mécanismes d’interopérabilité permettant d’assurer la traçabilité des dispositifs médicaux implantables (DMI) au sein d’un établissement de santé.",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/tdmi",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "3.0.0-ballot",
+      "latestDate": "2026-03-05",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tdmi/3.0.0-ballot",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-tracabilite-dmi/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tdmi/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fhir.fr.nde",
+      "title": "Volet Traçabilité des notifications d'événements",
+      "description": "Ce guide décrit un mécanisme de notification d'évènements permettant d'informer automatiquement une personne lorsqu'un évènement survient au cours de sa prise en charge.",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/nde",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "3.0.0",
+      "latestDate": "2026-03-13",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/nde/3.0.0",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-notification-evenements/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/nde/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fhir.fr.tde",
+      "title": "Volet Traçabilité des événements",
+      "description": "Ce guide décrit les échanges de données de santé dans le domaine de la traçabilité des événements",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/tde",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "2.0.0",
+      "latestDate": "2026-03-13",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tde/2.0.0",
+      "ciBuild": "https://ansforge.github.io/interop-ig-fhir-tracabilite-evenements/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tde/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.hl7v2.fr.teleradiologie",
+      "title": "Volet Téléradiologie",
+      "description": "Ce guide décrit les échanges de données de santé dans le domaine de la téléradiologie",
+      "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "HL7v2",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.2.0",
+      "latestDate": "2026-06-12",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie/0.2.0",
+      "ciBuild": "https://ansforge.github.io/interop-ig-hl7v2-teleradiologie/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/teleradiologie/history.html",
+      "status": "trial-implementation"
+    },
+    {
+      "id": "ans.hl7v2.fr.trans-cda-r2",
+      "title": "[CI-SIS]Volet de transmission d'un document CDA-R2 en HL7v2",
+      "description": "Ce document est une spécification d'une transaction de demande de transmission/remplacement/suppression de document(s) clinique(s) en intra-organisation entre un système créateur de documents et une PFI (plateforme d'intermédiation), dans l'objectif de partager et/ou d'échanger ces documents avec les acteurs externes à l'établissement pour : \n Publication de document(s) clinique(s) du patient au DMP (Dossier Médical Partagé),\n Envoi de document(s) clinique(s) du patient à différents destinataires externes à l'établissement au moyen de la MSSanté (Messagerie Sécurisée de Santé)",
+      "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "HL7v2",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "2.1.2",
+      "latestDate": "2025-03-04",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2/2.1.2",
+      "ciBuild": "https://ansforge.github.io/IG-hl7v2-volet-transmission-document-cda-r2/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-r2/history.html",
+      "status": "Publications"
+    },
+    {
+      "id": "ans.hl7v2.fr.trans-cda-mss",
+      "title": "[CI-SIS]Volet transmission au LPS d'un document CDA provenant d'un courriel MSSanté",
+      "description": "Ce volet du CI-SIS décrit la possibilité pour un logiciel métier d'une organisation de déléguer à un acteur tiers, la plateforme d'intermédiation (PFI), la capacité de traiter un courriel entrant provenant d'une BAL MSSanté et de générer à partir de ce courriel une demande d'intégration ou de remplacement ou de suppression d'un document clinique en direction de l'application métier consommatrice. Ce volet est à considérer par le lecteur en association avec un autre volet du CI_SIS, le volet « Transmission de document(s) CDA en HL7v2 » de façon à avoir une vision de bout en bout des échanges au travers de la MSSanté (du CREATEUR de la demande de traitement sur un document vers le CONSOMMATEUR final de cette demande).",
+      "canonical": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss",
+      "publisher": "ANS (CI-SIS)",
+      "specType": "HL7v2",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "1.1.2",
+      "latestDate": "2025-03-04",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss/1.1.2",
+      "ciBuild": "https://ansforge.github.io/IG-hl7v2-volet-trans-lps-doc-cda-courriel-mss/main/ig/",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/hl7v2/trans-cda-mss/history.html",
+      "status": "Publications"
     },
     {
       "id": "cissis.cda.fr.avc",
