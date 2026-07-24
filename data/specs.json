@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-23T08:40:36Z",
+  "lastUpdated": "2026-07-24T08:36:15Z",
   "count": 67,
   "specs": [
     {
@@ -97,9 +97,9 @@
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "1.2.0-snapshot-2",
-      "latestDate": "2026-06-23",
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/1.2.0-snapshot-2",
+      "latestVersion": "1.2.0-snapshot-3",
+      "latestDate": "2026-07-10",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/1.2.0-snapshot-3",
       "ciBuild": "https://ansforge.github.io/IG-fhir-annuaire/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/annuaire/history.html",
       "status": "final-text"
@@ -148,9 +148,9 @@
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "3.0.0",
-      "latestDate": "2025-02-06",
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/3.0.0",
+      "latestVersion": "3.0.1",
+      "latestDate": "2026-07-21",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/3.0.1",
       "ciBuild": "https://ansforge.github.io/IG-fhir-cdl-de-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/cdl/history.html",
       "status": "trial-use"
@@ -279,17 +279,17 @@
       "title": "Médicosocial - Transfert de données DUI",
       "description": "Clinical Documents",
       "canonical": "https://interop.esante.gouv.fr/ig/fhir/tddui",
-      "publisher": "ANS (CI-SIS)",
+      "publisher": "ANS",
       "specType": "FHIR",
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "2.4.0-ballot",
-      "latestDate": "2026-07-01",
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.4.0-ballot",
+      "latestVersion": "2.4.0",
+      "latestDate": "2026-07-22",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/2.4.0",
       "ciBuild": "https://ansforge.github.io/IG-fhir-medicosocial-transfert-donnees-dui/ig/main/",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/tddui/history.html",
-      "status": "trial-implementation"
+      "status": "trial-use"
     },
     {
       "id": "ans.fhir.fr.pdsm",
