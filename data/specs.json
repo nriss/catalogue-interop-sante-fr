@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-08T13:13:36Z",
+  "lastUpdated": "2026-10-09T13:00:18Z",
   "count": 67,
   "specs": [
     {
@@ -29,12 +29,12 @@
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "0.1.0-snapshot",
-      "latestDate": "2026-06-19",
-      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/0.1.0-snapshot",
+      "latestVersion": "0.1.0",
+      "latestDate": "2026-10-09",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/0.1.0",
       "ciBuild": "https://ansforge.github.io/interop-ig-fhir-api-messagerie-securisee-sante/main/ig",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/mss/history.html",
-      "status": "Snapshot"
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.cds",
