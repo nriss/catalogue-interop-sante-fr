@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-20T11:18:41Z",
-  "count": 67,
+  "lastUpdated": "2026-10-21T11:34:32Z",
+  "count": 69,
   "specs": [
     {
       "id": "ans.document.fr.core",
@@ -307,6 +307,23 @@
       "ciBuild": "https://ansforge.github.io/IG-fhir-partage-de-documents-de-sante/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/pdsm/history.html",
       "status": "trial-use"
+    },
+    {
+      "id": "ans.fr.pdlgc",
+      "title": "Portabilité des données des Logiciels de Gestion de Cabinet (LGC)",
+      "description": "Ce document présente les spécifications fonctionnelles et techniques du volet « Portabilité des données LGC » (PDLGC). Ces dernières spécifient l'architecture d'une archive de Portabilité permettant l'export de données d'un LGC à un autre.",
+      "canonical": "https://interop.esante.gouv.fr/ig/pdlgc",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0-ballot",
+      "latestDate": "2026-10-20",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/pdlgc/0.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/IG-fhir-portabilite-lgc/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/pdlgc/history.html",
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.ruim",
@@ -1001,6 +1018,21 @@
       "latestUrl": "https://esante.gouv.fr/volet-eprescription-de-produits-de-sante-medicaments-etou-dispositifs-medicaux",
       "ciBuild": null,
       "historyUrl": "https://esante.gouv.fr/volet-eprescription-de-produits-de-sante-medicaments-etou-dispositifs-medicaux",
+      "status": ""
+    },
+    {
+      "id": "hl7.fhir.fr.preadmission",
+      "title": "Guide d'Implémentation FHIR – Pré-admission Hospitalière en Ligne",
+      "description": "",
+      "canonical": "https://hl7.fr/ig/fhir/preadmission",
+      "publisher": "HL7 France",
+      "specType": "FHIR",
+      "fhirVersion": [],
+      "latestVersion": "1.0.0-ballot",
+      "latestDate": "2026-10-21",
+      "latestUrl": "https://hl7.fr/ig/fhir/preadmission/1.0.0-ballot",
+      "ciBuild": "https://interop-sante.github.io/hl7.fhir.fr.preadmission/main/ig/",
+      "historyUrl": "https://hl7.fr/ig/fhir/preadmission/history.html",
       "status": ""
     },
     {
