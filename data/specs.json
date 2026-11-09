@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-08T13:08:29Z",
+  "lastUpdated": "2026-11-09T15:53:38Z",
   "count": 69,
   "specs": [
     {
@@ -1047,9 +1047,9 @@
       "fhirVersion": [
         "4.0.1"
       ],
-      "latestVersion": "2.2.0",
-      "latestDate": "2026-03-25",
-      "latestUrl": "https://hl7.fr/ig/fhir/core/2.2.0",
+      "latestVersion": "3.0.0-ballot",
+      "latestDate": "2026-11-09",
+      "latestUrl": "https://hl7.fr/ig/fhir/core/3.0.0-ballot",
       "ciBuild": "https://interop-sante.github.io/hl7.fhir.fr.core/main/ig",
       "historyUrl": "https://hl7.fr/ig/fhir/core/history.html",
       "status": "final-text"
