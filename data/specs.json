@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-17T15:49:18Z",
-  "count": 69,
+  "lastUpdated": "2026-11-18T15:28:35Z",
+  "count": 72,
   "specs": [
     {
       "id": "ans.document.fr.core",
@@ -86,6 +86,57 @@
       "ciBuild": "https://ansforge.github.io/IG-documentation/ig/main",
       "historyUrl": "https://interop.esante.gouv.fr/ig/documentation/history.html",
       "status": "release"
+    },
+    {
+      "id": "ans.cda.fr.document-core",
+      "title": "FR Document Core (CDA)",
+      "description": "Ce guide définit les spécifications CDA des documents dématérialisés produits en France dans le domaine sanitaire et le domaine médico-social (en-tête, structure générale et corps des documents).",
+      "canonical": "https://interop.esante.gouv.fr/ig/cda/document-core",
+      "publisher": "ANS",
+      "specType": "CDA",
+      "fhirVersion": [
+        "5.0.0"
+      ],
+      "latestVersion": "0.1.0-ballot",
+      "latestDate": "2026-11-17",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/cda/document-core/0.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/interop-IG-cda-document-core/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/cda/document-core/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fhir.fr.document-core",
+      "title": "FR Document Core (FHIR)",
+      "description": "Ce guide définit les spécifications FHIR des documents dématérialisés produits en France dans le domaine sanitaire et le domaine médico-social (en-tête, structure générale et corps des documents).",
+      "canonical": "https://interop.esante.gouv.fr/ig/fhir/document-core",
+      "publisher": "ANS",
+      "specType": "FHIR",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0-ballot",
+      "latestDate": "2026-11-17",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/fhir/document-core/0.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/interop-IG-fhir-document-core/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/fhir/document-core/history.html",
+      "status": "STU1"
+    },
+    {
+      "id": "ans.fr.document-core",
+      "title": "FR Document Core (Modèle métier)",
+      "description": "Ce guide définit le modèle logique métier des documents dématérialisés produits en France dans le domaine sanitaire et le domaine médico-social, ainsi que les correspondances entre ce modèle et les structures CDA et FHIR.",
+      "canonical": "https://interop.esante.gouv.fr/ig/document-core",
+      "publisher": "ANS",
+      "specType": "Autre",
+      "fhirVersion": [
+        "4.0.1"
+      ],
+      "latestVersion": "0.1.0-ballot",
+      "latestDate": "2026-11-18",
+      "latestUrl": "https://interop.esante.gouv.fr/ig/document-core/0.1.0-ballot",
+      "ciBuild": "https://ansforge.github.io/interop-IG-metier-document-core/main/ig",
+      "historyUrl": "https://interop.esante.gouv.fr/ig/document-core/history.html",
+      "status": "STU1"
     },
     {
       "id": "ans.fhir.fr.annuaire",
